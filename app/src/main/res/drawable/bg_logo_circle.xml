@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Glow effect más intenso -->
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:centerColor="#4D00CCFF"
+                android:endColor="#0000CCFF"
+                android:gradientRadius="50dp"
+                android:startColor="#8000CCFF"
+                android:type="radial" />
+        </shape>
+    </item>
+    <!-- Círculo interior -->
+    <item
+        android:bottom="8dp"
+        android:left="8dp"
+        android:right="8dp"
+        android:top="8dp">
+        <shape android:shape="oval">
+            <stroke
+                android:width="2dp"
+                android:color="#80FFFFFF" />
+            <solid android:color="#26FFFFFF" />
+        </shape>
+    </item>
+</layer-list>

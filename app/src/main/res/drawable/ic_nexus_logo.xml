@@ -1,0 +1,26 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="52dp"
+    android:height="52dp"
+    android:viewportWidth="52"
+    android:viewportHeight="52">
+
+    <!-- M izquierda -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M14,39L14,14L26,26L38,14L38,39"
+        android:strokeWidth="2.5"
+        android:strokeColor="@color/white"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+
+    <!-- Unión central -->
+    <path
+        android:fillColor="@color/white"
+        android:pathData="M22,22L30,22L30,28L22,28Z" />
+
+    <!-- Nodo -->
+    <path
+        android:fillColor="#BFE0FF"
+        android:pathData="M26,26m-4,0a4,4 0,1 0,8 0a4,4 0,1 0,-8 0" />
+
+</vector>

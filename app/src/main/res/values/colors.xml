@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fondo Principal (Oscuro) -->
+    <color name="bg_blue_darkest">#021B3D</color>
+    <color name="bg_blue_dark">#052B68</color>
+    <color name="bg_blue_medium">#0759B8</color>
+
+    <!-- Tarjeta (Azul Intenso) -->
+    <color name="card_blue">#0047AB</color>
+    <color name="card_blue_light">#1063D4</color>
+
+    <!-- Botón Gradiente -->
+    <color name="btn_cyan">#00CCFF</color>
+    <color name="btn_blue">#1A66FF</color>
+
+    <!-- Neutros -->
+    <color name="white">#FFFFFF</color>
+    <color name="white_soft">#F7FAFF</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Texto -->
+    <color name="text_input_hint">#8E9DB2</color>
+    <color name="text_input_value">#052B68</color>
+    <color name="text_secondary">#BFDDF8</color>
+    <color name="text_white">#FFFFFF</color>
+
+    <!-- Bordes y Detalles -->
+    <color name="card_border">#33FFFFFF</color>
+    <color name="logo_border">#4DFFFFFF</color>
+    <color name="divider_color">#1AFFFFFF</color>
+
+    <!-- Legacy / Nexus (Fixed for themes) -->
+    <color name="nexus_blue_dark">#021B3D</color>
+    <color name="nexus_blue_light">#00CCFF</color>
+</resources>

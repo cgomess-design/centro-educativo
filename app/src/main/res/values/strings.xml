@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Centro Educativo</string>
+    <!-- Login -->
+    <string name="app_title">CENTRO EDUCATIVO</string>
+    <string name="app_subtitle">SISTEMA DE GESTIÓN</string>
+
+    <string name="username_hint">Usuario</string>
+    <string name="password_hint">Contraseña</string>
+
+    <string name="remember_me">Recuérdame</string>
+
+    <string name="login">INICIAR SESIÓN</string>
+
+    <string name="forgot_password">¿Olvidaste tu contraseña?</string>
+
+    <!-- Accesibilidad -->
+    <string name="logo_description">Logo de la App</string>
+    <string name="show_password">Mostrar contraseña</string>
+    <string name="hide_password">Ocultar contraseña</string>
+
+    <!-- Footer -->
+    <string name="app_version">v1.0.0</string>
+    <string name="copyright">© 2026 UmgDev. Todos los derechos reservados.</string>
+
+</resources>
