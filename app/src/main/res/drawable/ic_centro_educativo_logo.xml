@@ -1,0 +1,57 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="64dp"
+    android:height="64dp"
+    android:viewportWidth="64"
+    android:viewportHeight="64">
+
+    <!-- Birrete / Mortarboard (Rombo superior blanco) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M32,10 L56,21 L32,32 L8,21 Z" />
+
+    <!-- Casquete inferior del birrete (Azul hielo suave) -->
+    <path
+        android:fillColor="#E0F2FE"
+        android:pathData="M18,25.5 L18,33 C18,39 46,39 46,33 L46,25.5 C40,28.5 24,28.5 18,25.5 Z" />
+
+    <!-- Borla / Tassel y cordón en Rojo Carmesí -->
+    <path
+        android:strokeColor="#E63946"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M32,21 Q50,21 50,28 L50,38" />
+
+    <!-- Flecos de la borla en Rojo Carmesí -->
+    <path
+        android:fillColor="#E63946"
+        android:pathData="M48,37 L52,37 L53,44 L47,44 Z" />
+
+    <!-- Botón central del birrete en Rojo Carmesí -->
+    <path
+        android:fillColor="#E63946"
+        android:pathData="M32,21 m-2.5,0 a2.5,2.5 0 1,1 5,0 a2.5,2.5 0 1,1 -5,0" />
+
+    <!-- Libro abierto - Página Izquierda (Blanco) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M31,43 C24,39.5 16,39.5 10,42.5 L10,53.5 C16,50.5 24,50.5 31,54 Z" />
+
+    <!-- Libro abierto - Página Derecha (Blanco) -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M33,43 C40,39.5 48,39.5 54,42.5 L54,53.5 C48,50.5 40,50.5 33,54 Z" />
+
+    <!-- Páginas interiores decorativas del libro en Verde Esmeralda -->
+    <path
+        android:strokeColor="#00E676"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M14,45 C19,43.5 25,43.5 29,46 M14,48.5 C19,47 25,47 29,49.5" />
+
+    <path
+        android:strokeColor="#00E676"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M50,45 C45,43.5 39,43.5 35,46 M50,48.5 C45,47 39,47 35,49.5" />
+
+</vector>

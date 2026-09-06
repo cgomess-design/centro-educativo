@@ -5,12 +5,11 @@
         <shape>
             <gradient
                 android:angle="0"
-                android:endColor="#1A66FF"
-                android:startColor="#00CCFF"
+                android:startColor="@color/btn_red_start"
+                android:endColor="@color/btn_red_end"
                 android:type="linear" />
-            <corners android:radius="@dimen/button_radius" />
-            <!-- Añadimos una elevación visual con un stroke ligero -->
-            <stroke android:width="0.5dp" android:color="#40FFFFFF" />
+            <corners android:radius="24dp" />
+            <stroke android:width="0.5dp" android:color="#4DFFFFFF" />
         </shape>
     </item>
 </ripple>

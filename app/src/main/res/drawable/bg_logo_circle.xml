@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Glow effect más intenso -->
+    <!-- Glow exterior en verde esmeralda translúcido -->
     <item>
         <shape android:shape="oval">
             <gradient
-                android:centerColor="#4D00CCFF"
-                android:endColor="#0000CCFF"
-                android:gradientRadius="50dp"
-                android:startColor="#8000CCFF"
+                android:centerColor="#3300E676"
+                android:endColor="#00000000"
+                android:gradientRadius="55dp"
+                android:startColor="#6600E676"
                 android:type="radial" />
         </shape>
     </item>
-    <!-- Círculo interior -->
+
+    <!-- Círculo interior con borde rojo rubí y relleno azul noche -->
     <item
         android:bottom="8dp"
         android:left="8dp"
@@ -20,8 +21,8 @@
         <shape android:shape="oval">
             <stroke
                 android:width="2dp"
-                android:color="#80FFFFFF" />
-            <solid android:color="#26FFFFFF" />
+                android:color="#D9E63946" />
+            <solid android:color="#4D0B1F38" />
         </shape>
     </item>
 </layer-list>

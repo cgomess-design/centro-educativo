@@ -30,37 +30,50 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
+                    android:id="@+id/imgLogo"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_nexus_logo"
+                    android:src="@drawable/ic_centro_educativo_logo"
                     android:contentDescription="@string/logo_description" />
             </FrameLayout>
 
             <TextView
                 android:id="@+id/txtAppName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
                 android:fontFamily="sans-serif-black"
-                android:letterSpacing="0.1"
+                android:gravity="center"
+                android:letterSpacing="0.04"
                 android:text="@string/app_title"
+                android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="32sp"
+                android:textSize="26sp"
+                app:autoSizeMaxTextSize="26sp"
+                app:autoSizeMinTextSize="18sp"
+                app:autoSizeStepGranularity="1sp"
+                app:autoSizeTextType="uniform"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/logo_container" />
 
             <TextView
                 android:id="@+id/txtAppSubtitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="4dp"
+                android:layout_marginEnd="24dp"
                 android:fontFamily="sans-serif-medium"
-                android:letterSpacing="0.2"
+                android:gravity="center"
+                android:letterSpacing="0.15"
                 android:text="@string/app_subtitle"
-                android:textColor="#BFDDF8"
-                android:textSize="14sp"
+                android:textAlignment="center"
+                android:textColor="@color/text_green_mint"
+                android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/txtAppName" />
@@ -107,8 +120,8 @@
                         android:inputType="text"
                         android:paddingStart="12dp"
                         android:paddingEnd="16dp"
-                        android:textColor="#052B68"
-                        android:textColorHint="#8E9DB2"
+                        android:textColor="@color/text_input_value"
+                        android:textColorHint="@color/text_input_hint"
                         android:textSize="17sp" />
                 </LinearLayout>
 
@@ -141,8 +154,8 @@
                         android:inputType="textPassword"
                         android:paddingStart="12dp"
                         android:paddingEnd="12dp"
-                        android:textColor="#052B68"
-                        android:textColorHint="#8E9DB2"
+                        android:textColor="@color/text_input_value"
+                        android:textColorHint="@color/text_input_hint"
                         android:textSize="17sp" />
 
                     <ImageButton
@@ -170,21 +183,27 @@
 
                 <Button
                     android:id="@+id/btnLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="24dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="46dp"
+                    android:minWidth="190dp"
+                    android:layout_marginTop="20dp"
+                    android:paddingStart="32dp"
+                    android:paddingEnd="32dp"
                     android:background="@drawable/bg_button_login"
                     app:backgroundTint="@null"
                     android:fontFamily="sans-serif-black"
+                    android:letterSpacing="0.05"
                     android:text="@string/login"
                     android:textColor="@color/white"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/chkRecordar" />
 
                 <ProgressBar
                     android:id="@+id/progressBarLogin"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:indeterminate="true"
                     android:indeterminateTint="@color/white"
                     android:visibility="gone"
@@ -199,7 +218,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:text="@string/forgot_password"
-                    android:textColor="#BFE0FF"
+                    android:textColor="@color/text_forgot_password"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -215,7 +234,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="80dp"
                 android:layout_marginEnd="40dp"
-                android:background="#1AFFFFFF"
+                android:background="@color/divider_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/login_card" />
@@ -227,7 +246,7 @@
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="20dp"
                 android:text="@string/app_version"
-                android:textColor="#BFE0FF"
+                android:textColor="@color/footer_text"
                 android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/footer_divider" />
@@ -241,7 +260,7 @@
                 android:layout_marginEnd="40dp"
                 android:gravity="end"
                 android:text="@string/copyright"
-                android:textColor="#BFE0FF"
+                android:textColor="@color/footer_text"
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
