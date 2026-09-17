@@ -16,6 +16,7 @@ import gt.com.ro.devumgapp.network.RetrofitClient;
 import gt.com.ro.devumgapp.network.model.LoginRequest;
 import gt.com.ro.devumgapp.network.model.LoginResponse;
 import gt.com.ro.devumgapp.utils.ApiErrorHandler;
+import gt.com.ro.devumgapp.utils.JwtUtils;
 import gt.com.ro.devumgapp.utils.TokenManager;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -78,8 +79,22 @@ public class LoginActivity extends AppCompatActivity {
                         if (response.isSuccessful() && response.body() != null
                                 && response.body().getToken() != null
                                 && !response.body().getToken().trim().isEmpty()) {
+                            String token = response.body().getToken().trim();
+                            String role = response.body().getRol();
+                            String user = response.body().getUsername();
+
+                            if (role == null || role.trim().isEmpty()) {
+                                role = JwtUtils.extractRole(token);
+                            }
+                            if (user == null || user.trim().isEmpty()) {
+                                user = JwtUtils.extractUsername(token);
+                            }
+                            if (user == null || user.trim().isEmpty()) {
+                                user = username;
+                            }
+
                             TokenManager.getInstance(LoginActivity.this)
-                                    .saveToken(response.body().getToken());
+                                    .saveSession(token, role, user);
                             openMain();
                             return;
                         }
