@@ -22,4 +22,27 @@
     <string name="app_version">v1.0.0</string>
     <string name="copyright">© 2026 UmgDev. Todos los derechos reservados.</string>
 
+    <!-- Menú Principal -->
+    <string name="menu_title">CENTRO EDUCATIVO</string>
+    <string name="menu_subtitle">MENÚ DE GESTIÓN</string>
+    <string name="menu_estudiantes">GESTIONAR ESTUDIANTES</string>
+    <string name="menu_docentes">GESTIONAR DOCENTES</string>
+    <string name="menu_cursos">GESTIONAR CURSOS</string>
+    <string name="menu_inscripciones">GESTIONAR INSCRIPCIONES</string>
+    <string name="menu_notas">GESTIONAR NOTAS</string>
+    <string name="menu_consultar_notas">CONSULTAR NOTAS</string>
+    <string name="menu_consultar_cursos">CONSULTAR CURSOS</string>
+    <string name="menu_consultar_cursos_asignados">CONSULTAR CURSOS ASIGNADOS</string>
+    <string name="menu_cerrar_sesion">CERRAR SESIÓN</string>
+    <string name="msg_modulo_en_desarrollo">El módulo de %1$s estará disponible próximamente.</string>
+
+    <!-- Roles e Indicador de Usuario -->
+    <string name="role_docente">DOCENTE</string>
+    <string name="role_estudiante">ESTUDIANTE</string>
+    <string name="role_admin">ADMINISTRADOR</string>
+    <string name="role_sin_rol">SIN ROL ASIGNADO</string>
+    <string name="menu_user_session">Sesión: %1$s • %2$s</string>
+    <string name="menu_user_session_no_user">Rol: %1$s</string>
+    <string name="msg_sin_permisos">Tu usuario no cuenta con opciones de acceso asignadas.</string>
+
 </resources>
