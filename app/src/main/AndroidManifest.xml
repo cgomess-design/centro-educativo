@@ -16,6 +16,9 @@
         <activity android:name=".activities.FormEstudianteActivity" />
         <activity android:name=".activities.DetalleEstudianteActivity" />
         <activity android:name=".activities.EstudiantesActivity" />
+        <activity android:name=".activities.CursosActivity" />
+        <activity android:name=".activities.FormCursoActivity" />
+        <activity android:name=".activities.DetalleCursoActivity" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".SplashActivity"
