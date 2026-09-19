@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import gt.com.ro.devumgapp.activities.EstudiantesActivity;
+import gt.com.ro.devumgapp.activities.CursosActivity;
 import gt.com.ro.devumgapp.utils.JwtUtils;
 import gt.com.ro.devumgapp.utils.TokenManager;
 
@@ -64,7 +65,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, EstudiantesActivity.class)));
 
         btnDocentes.setOnClickListener(v -> showUpcomingModule("Docentes"));
-        btnCursos.setOnClickListener(v -> showUpcomingModule("Cursos"));
+
+        btnCursos.setOnClickListener(v ->
+                startActivity(new Intent(this, CursosActivity.class)));
         btnInscripciones.setOnClickListener(v -> showUpcomingModule("Inscripciones"));
         btnNotas.setOnClickListener(v -> showUpcomingModule("Notas"));
         btnConsultarNotas.setOnClickListener(v -> showUpcomingModule("Consulta de Notas"));
