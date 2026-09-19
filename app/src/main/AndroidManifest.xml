@@ -16,6 +16,12 @@
         <activity android:name=".activities.FormEstudianteActivity" />
         <activity android:name=".activities.DetalleEstudianteActivity" />
         <activity android:name=".activities.EstudiantesActivity" />
+        <activity android:name=".activities.DocenteActivity" />
+        <activity android:name=".activities.DetalleDocenteActivity" />
+        <activity android:name=".activities.FormDocenteActivity" />
+        <activity android:name=".activities.NotasActivity" />
+        <activity android:name=".activities.DetalleNotaActivity" />
+        <activity android:name=".activities.FormNotaActivity" />
         <activity android:name=".activities.CursosActivity" />
         <activity android:name=".activities.FormCursoActivity" />
         <activity android:name=".activities.DetalleCursoActivity" />
