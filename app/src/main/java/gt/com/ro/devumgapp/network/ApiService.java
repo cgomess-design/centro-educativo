@@ -3,8 +3,10 @@ package gt.com.ro.devumgapp.network;
 import com.google.gson.JsonElement;
 
 import gt.com.ro.devumgapp.network.model.CursoRequest;
+import gt.com.ro.devumgapp.network.model.DocenteRequest;
 import gt.com.ro.devumgapp.network.model.EstudianteRequest;
 import gt.com.ro.devumgapp.network.model.InscripcionRequest;
+import gt.com.ro.devumgapp.network.model.NotaRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -67,6 +69,41 @@ public interface ApiService extends AuthService {
     @PUT("inscripciones/{id}") Call<JsonElement> actualizarInscripcion(@Path("id") long id, @Body InscripcionRequest request);
 
     @DELETE("inscripciones/{id}") Call<JsonElement> eliminarInscripcion(@Path("id") long id);
+  
+    /** DOCENTES */
+
+    @GET("docentes")
+    Call<JsonElement> obtenerDocentes();
+
+    @GET("docentes/{id}")
+    Call<JsonElement> obtenerDocente(@Path("id") long id);
+
+    @POST("docentes")
+    Call<JsonElement> crearDocente(@Body DocenteRequest request);
+
+    @PUT("docentes/{id}")
+    Call<JsonElement> actualizarDocente(@Path("id") long id, @Body DocenteRequest request);
+
+    @DELETE("docentes/{id}")
+    Call<JsonElement> eliminarDocente(@Path("id") long id);
+
+    /** NOTAS */
+
+    @GET("notas")
+    Call<JsonElement> obtenerNotas();
+
+    @GET("notas/{id}")
+    Call<JsonElement> obtenerNota(@Path("id") long id);
+
+    @POST("notas")
+    Call<JsonElement> crearNota(@Body NotaRequest request);
+
+    @PUT("notas/{id}")
+    Call<JsonElement> actualizarNota(@Path("id") long id, @Body NotaRequest request);
+
+    @DELETE("notas/{id}")
+    Call<JsonElement> eliminarNota(@Path("id") long id);
+
 }
 
 
