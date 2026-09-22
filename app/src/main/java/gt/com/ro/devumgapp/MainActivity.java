@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import gt.com.ro.devumgapp.activities.EstudiantesActivity;
 import gt.com.ro.devumgapp.activities.CursosActivity;
 import gt.com.ro.devumgapp.activities.InscripcionesActivity;
+import gt.com.ro.devumgapp.activities.NotasActivity;
 import gt.com.ro.devumgapp.utils.JwtUtils;
 import gt.com.ro.devumgapp.utils.TokenManager;
 
@@ -79,8 +80,10 @@ public class MainActivity extends AppCompatActivity {
                 )
         );
         btnNotas.setOnClickListener(v -> showUpcomingModule("Notas"));
-        btnConsultarNotas.setOnClickListener(v -> showUpcomingModule("Consulta de Notas"));
-        btnConsultarCursos.setOnClickListener(v -> showUpcomingModule("Consulta de Cursos"));
+        btnConsultarNotas.setOnClickListener(v ->
+                startActivity(new Intent(this, NotasActivity.class)));
+        btnConsultarCursos.setOnClickListener(v ->
+                startActivity(new Intent(this, CursosActivity.class)));
         btnConsultarCursosAsignados.setOnClickListener(v -> showUpcomingModule("Consulta de Cursos Asignados"));
 
         btnCerrarSesion.setOnClickListener(v -> {
