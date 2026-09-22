@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Inscripción"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/edtEstudianteIdInscripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:hint="ID del estudiante"
+            android:inputType="number"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/edtCursoIdInscripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ID del curso"
+            android:inputType="number"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/edtFechaInscripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Fecha de inscripción (AAAA-MM-DD)"
+            android:inputType="date"
+            tools:ignore="HardcodedText" />
+
+        <ProgressBar
+            android:id="@+id/progressFormInscripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnGuardarInscripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+</ScrollView>

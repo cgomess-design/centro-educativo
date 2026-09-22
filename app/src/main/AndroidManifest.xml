@@ -25,6 +25,11 @@
         <activity android:name=".activities.CursosActivity" />
         <activity android:name=".activities.FormCursoActivity" />
         <activity android:name=".activities.DetalleCursoActivity" />
+
+        <activity android:name=".activities.InscripcionesActivity" />
+        <activity android:name=".activities.DetalleInscripcionActivity" />
+        <activity android:name=".activities.FormInscripcionActivity" />
+
         <activity android:name=".MainActivity" />
         <activity
             android:name=".SplashActivity"

@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import gt.com.ro.devumgapp.network.model.CursoRequest;
 import gt.com.ro.devumgapp.network.model.DocenteRequest;
 import gt.com.ro.devumgapp.network.model.EstudianteRequest;
+import gt.com.ro.devumgapp.network.model.InscripcionRequest;
 import gt.com.ro.devumgapp.network.model.NotaRequest;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -13,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /** Endpoints protegidos publicados por el backend SGAU. */
 public interface ApiService extends AuthService {
@@ -49,6 +51,25 @@ public interface ApiService extends AuthService {
 
     @PUT("cursos/{id}/restaurar") Call<JsonElement> restaurarCurso(@Path("id") long id);
 
+
+    /** INSCRIPCIONES */
+
+    @GET("inscripciones") Call<JsonElement> obtenerInscripciones();
+
+    @GET("inscripciones/{id}") Call<JsonElement> obtenerInscripcion(@Path("id") long id);
+
+    @GET("inscripciones/estudiante/{estudianteId}") Call<JsonElement> obtenerInscripcionesPorEstudiante(@Path("estudianteId") long estudianteId);
+
+    @GET("inscripciones/curso/{cursoId}") Call<JsonElement> obtenerInscripcionesPorCurso(@Path("cursoId") long cursoId);
+
+    @GET("inscripciones/paginadas") Call<JsonElement> obtenerInscripcionesPaginadas(@Query("pagina") int pagina, @Query("tamanio") int tamanio);
+
+    @POST("inscripciones") Call<JsonElement> crearInscripcion(@Body InscripcionRequest request);
+
+    @PUT("inscripciones/{id}") Call<JsonElement> actualizarInscripcion(@Path("id") long id, @Body InscripcionRequest request);
+
+    @DELETE("inscripciones/{id}") Call<JsonElement> eliminarInscripcion(@Path("id") long id);
+  
     /** DOCENTES */
 
     @GET("docentes")
@@ -82,6 +103,7 @@ public interface ApiService extends AuthService {
 
     @DELETE("notas/{id}")
     Call<JsonElement> eliminarNota(@Path("id") long id);
+
 }
 
 
