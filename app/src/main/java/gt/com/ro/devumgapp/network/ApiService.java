@@ -25,6 +25,12 @@ public interface ApiService extends AuthService {
     @GET("estudiantes/{id}")
     Call<JsonElement> obtenerEstudiante(@Path("id") long id);
 
+    @GET("estudiantes/me/inscripciones")
+    Call<JsonElement> obtenerMisInscripciones();
+
+    @GET("estudiantes/me/notas")
+    Call<JsonElement> obtenerMisNotas();
+
     @POST("estudiantes")
     Call<JsonElement> crearEstudiante(@Body EstudianteRequest request);
 

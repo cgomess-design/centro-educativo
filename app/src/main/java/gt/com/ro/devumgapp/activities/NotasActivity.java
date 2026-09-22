@@ -23,6 +23,7 @@ import gt.com.ro.devumgapp.network.RetrofitClient;
 import gt.com.ro.devumgapp.network.model.Nota;
 import gt.com.ro.devumgapp.utils.ApiErrorHandler;
 import gt.com.ro.devumgapp.utils.NotaJsonMapper;
+import gt.com.ro.devumgapp.utils.TokenManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +33,7 @@ public class NotasActivity extends AppCompatActivity {
     private NotaAdapter adapter;
     private ProgressBar progressBar;
     private TextView emptyView;
+    private boolean studentMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +42,24 @@ public class NotasActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressNotas);
         emptyView = findViewById(R.id.txtNotasVacias);
+        String role = TokenManager.getInstance(this).getRole();
+        studentMode = role != null
+                && (role.trim().toUpperCase().contains("ESTUDIANTE")
+                || role.trim().toUpperCase().contains("ALUMNO"));
 
         RecyclerView recycler = findViewById(R.id.recyclerNotas);
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new NotaAdapter(this::openDetail);
+        adapter = new NotaAdapter(studentMode ? null : this::openDetail, studentMode);
         recycler.setAdapter(adapter);
 
         Button add = findViewById(R.id.btnAgregarNota);
+        add.setVisibility(studentMode ? View.GONE : View.VISIBLE);
         add.setOnClickListener(v -> startActivity(new Intent(this, FormNotaActivity.class)));
+
+        if (studentMode) {
+            emptyView.setText("Aún no tienes notas registradas.");
+        }
     }
 
     @Override
@@ -60,9 +71,11 @@ public class NotasActivity extends AppCompatActivity {
     private void cargarNotas() {
         setLoading(true);
 
-        RetrofitClient.getInstance(this)
-                .getApiService()
-                .obtenerNotas()
+        Call<JsonElement> call = studentMode
+                ? RetrofitClient.getInstance(this).getApiService().obtenerMisNotas()
+                : RetrofitClient.getInstance(this).getApiService().obtenerNotas();
+
+        call
                 .enqueue(new Callback<JsonElement>() {
                     @Override
                     public void onResponse(@NonNull Call<JsonElement> call, @NonNull Response<JsonElement> response) {

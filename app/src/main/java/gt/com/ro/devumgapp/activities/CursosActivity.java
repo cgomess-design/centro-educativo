@@ -18,19 +18,25 @@ import java.util.List;
 
 import gt.com.ro.devumgapp.R;
 import gt.com.ro.devumgapp.adapters.CursoAdapter;
+import gt.com.ro.devumgapp.adapters.InscripcionAdapter;
 import gt.com.ro.devumgapp.network.RetrofitClient;
 import gt.com.ro.devumgapp.network.model.Curso;
+import gt.com.ro.devumgapp.network.model.Inscripcion;
 import gt.com.ro.devumgapp.utils.ApiErrorHandler;
 import gt.com.ro.devumgapp.utils.CursoJsonMapper;
+import gt.com.ro.devumgapp.utils.InscripcionJsonMapper;
+import gt.com.ro.devumgapp.utils.TokenManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CursosActivity extends AppCompatActivity {
 
-    private CursoAdapter adapter;
+    private CursoAdapter cursoAdapter;
+    private InscripcionAdapter inscripcionAdapter;
     private ProgressBar progressBar;
     private TextView emptyView;
+    private boolean studentMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +45,25 @@ public class CursosActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressCursos);
         emptyView = findViewById(R.id.txtCursosVacios);
+        String role = TokenManager.getInstance(this).getRole();
+        studentMode = role != null
+                && (role.trim().toUpperCase().contains("ESTUDIANTE")
+                || role.trim().toUpperCase().contains("ALUMNO"));
 
         RecyclerView recycler = findViewById(R.id.recyclerCursos);
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new CursoAdapter(this::openDetail);
-        recycler.setAdapter(adapter);
+        if (studentMode) {
+            inscripcionAdapter = new InscripcionAdapter(inscripcion -> { });
+            recycler.setAdapter(inscripcionAdapter);
+            emptyView.setText("Aún no tienes cursos asignados.");
+        } else {
+            cursoAdapter = new CursoAdapter(this::openDetail);
+            recycler.setAdapter(cursoAdapter);
+        }
 
         Button add = findViewById(R.id.btnAgregarCurso);
+        add.setVisibility(studentMode ? View.GONE : View.VISIBLE);
 
         add.setOnClickListener(v ->
                 startActivity(
@@ -65,6 +82,11 @@ public class CursosActivity extends AppCompatActivity {
     }
 
     private void cargarCursos() {
+
+        if (studentMode) {
+            cargarCursosDelEstudiante();
+            return;
+        }
 
         setLoading(true);
 
@@ -104,7 +126,7 @@ public class CursosActivity extends AppCompatActivity {
                                             response.body()
                                     );
 
-                            adapter.submitList(cursos);
+                            cursoAdapter.submitList(cursos);
 
                             emptyView.setVisibility(
                                     cursos.isEmpty()
@@ -131,6 +153,50 @@ public class CursosActivity extends AppCompatActivity {
                         showMessage(
                                 ApiErrorHandler.getNetworkMessage(error)
                         );
+                    }
+                });
+    }
+
+    private void cargarCursosDelEstudiante() {
+        setLoading(true);
+
+        RetrofitClient.getInstance(this)
+                .getApiService()
+                .obtenerMisInscripciones()
+                .enqueue(new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(
+                            Call<JsonElement> call,
+                            Response<JsonElement> response
+                    ) {
+                        setLoading(false);
+
+                        if (response.code() == 401) {
+                            ApiErrorHandler.handleUnauthorized(CursosActivity.this);
+                            return;
+                        }
+
+                        if (!response.isSuccessful() || response.body() == null) {
+                            showMessage(ApiErrorHandler.getMessage(response));
+                            return;
+                        }
+
+                        try {
+                            List<Inscripcion> inscripciones =
+                                    InscripcionJsonMapper.toList(response.body());
+                            inscripcionAdapter.submitList(inscripciones);
+                            emptyView.setVisibility(
+                                    inscripciones.isEmpty() ? View.VISIBLE : View.GONE);
+                        } catch (IllegalArgumentException error) {
+                            showMessage(
+                                    "El servidor devolvió una lista de inscripciones inválida.");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable error) {
+                        setLoading(false);
+                        showMessage(ApiErrorHandler.getNetworkMessage(error));
                     }
                 });
     }

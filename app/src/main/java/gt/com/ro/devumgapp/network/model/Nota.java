@@ -1,5 +1,7 @@
 package gt.com.ro.devumgapp.network.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Nota {
 
     private Long id;
@@ -8,7 +10,16 @@ public class Nota {
     private String estudianteNombre;
     private Long cursoId;
     private String cursoNombre;
+    @SerializedName("inscripcionId")
+    private Long inscripcionId;
+    @SerializedName("cicloAcademico")
+    private String cicloAcademico;
+    private Double zona;
+    private Double examenFinal;
+    private Double notaFinal;
+    private String estado;
     private Boolean activo;
+    private String fechaRegistro;
 
     public Long getId() {
         return id;
@@ -58,11 +69,39 @@ public class Nota {
         this.cursoNombre = cursoNombre;
     }
 
+    public Long getInscripcionId() {
+        return inscripcionId;
+    }
+
+    public String getCicloAcademico() {
+        return cicloAcademico;
+    }
+
+    public Double getZona() {
+        return zona;
+    }
+
+    public Double getExamenFinal() {
+        return examenFinal;
+    }
+
+    public Double getNotaFinal() {
+        return notaFinal;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
     public Boolean getActivo() {
         return activo;
     }
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+
+    public String getFechaRegistro() {
+        return fechaRegistro;
     }
 }
