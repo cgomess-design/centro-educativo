@@ -13,16 +13,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NexusApp">
+        <activity android:name=".activities.FormEstudianteActivity" />
+        <activity android:name=".activities.DetalleEstudianteActivity" />
+        <activity android:name=".activities.EstudiantesActivity" />
+        <activity android:name=".activities.DocenteActivity" />
+        <activity android:name=".activities.DetalleDocenteActivity" />
+        <activity android:name=".activities.FormDocenteActivity" />
+        <activity android:name=".activities.NotasActivity" />
+        <activity android:name=".activities.DetalleNotaActivity" />
+        <activity android:name=".activities.FormNotaActivity" />
+        <activity android:name=".activities.CursosActivity" />
+        <activity android:name=".activities.FormCursoActivity" />
+        <activity android:name=".activities.DetalleCursoActivity" />
+
+        <activity android:name=".activities.InscripcionesActivity" />
+        <activity android:name=".activities.DetalleInscripcionActivity" />
+        <activity android:name=".activities.FormInscripcionActivity" />
+
+        <activity android:name=".MainActivity" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
+            android:name=".SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

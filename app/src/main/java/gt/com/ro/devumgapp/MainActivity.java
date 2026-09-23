@@ -1,201 +1,183 @@
-
 package gt.com.ro.devumgapp;
 
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import gt.com.ro.devumgapp.network.RetrofitClient;
-import gt.com.ro.devumgapp.network.model.LoginRequest;
-import gt.com.ro.devumgapp.network.model.LoginResponse;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import gt.com.ro.devumgapp.activities.EstudiantesActivity;
+import gt.com.ro.devumgapp.activities.CursosActivity;
+import gt.com.ro.devumgapp.activities.InscripcionesActivity;
+import gt.com.ro.devumgapp.activities.NotasActivity;
+import gt.com.ro.devumgapp.utils.JwtUtils;
+import gt.com.ro.devumgapp.utils.TokenManager;
 
+/** Pantalla de menú principal con filtrado de opciones según el rol del usuario (RBAC). */
 public class MainActivity extends AppCompatActivity {
 
-    private static final String PREFS_NAME = "DevUmgPrefs";
-    private static final String KEY_USER_NAME = "user_name";
-    private static final String KEY_USER_PASS = "user_pass";
-    private static final String KEY_AUTH_TOKEN = "auth_token";
+    private TextView txtMenuUserRole;
+    private TextView txtMenuSinPermisos;
 
-    private EditText edtUsuario;
-    private EditText edtPassword;
-    private Button btnLogin;
-    private CheckBox chkRecordar;
-    private ImageButton btnShowPassword;
-    private ProgressBar progressBarLogin;
-    private boolean isPasswordVisible = false;
+    private Button btnEstudiantes;
+    private Button btnDocentes;
+    private Button btnCursos;
+    private Button btnInscripciones;
+    private Button btnNotas;
+    private Button btnConsultarNotas;
+    private Button btnConsultarCursos;
+    private Button btnConsultarCursosAsignados;
+    private Button btnCerrarSesion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
-
-        getWindow().setStatusBarColor(getResources().getColor(R.color.bg_blue_darkest, getTheme()));
-        getWindow().setNavigationBarColor(getResources().getColor(R.color.bg_blue_darkest, getTheme()));
-
-        inicializarVistas();
-        configurarTogglePassword();
-        configurarLogin();
-        cargarSesion();
-    }
-
-    private void inicializarVistas() {
-        edtUsuario = findViewById(R.id.edtUsuario);
-        edtPassword = findViewById(R.id.edtPassword);
-        btnLogin = findViewById(R.id.btnLogin);
-        chkRecordar = findViewById(R.id.chkRecordar);
-        btnShowPassword = findViewById(R.id.btnShowPassword);
-        progressBarLogin = findViewById(R.id.progressBarLogin);
-    }
-
-    private void configurarTogglePassword() {
-        btnShowPassword.setOnClickListener(v -> {
-            if (isPasswordVisible) {
-                edtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                btnShowPassword.setImageResource(R.drawable.ic_visibility);
-            } else {
-                edtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                btnShowPassword.setImageResource(R.drawable.ic_visibility_off);
-            }
-
-            isPasswordVisible = !isPasswordVisible;
-            edtPassword.setSelection(edtPassword.getText().length());
-        });
-    }
-
-    private void configurarLogin() {
-        btnLogin.setOnClickListener(v -> validarCredenciales());
-    }
-
-    private void validarCredenciales() {
-        String user = edtUsuario.getText().toString().trim();
-        String password = edtPassword.getText().toString().trim();
-
-        if (user.isEmpty() || password.isEmpty()) {
-            mostrarMensaje("Los campos son obligatorios");
+        if (!TokenManager.getInstance(this).hasToken()) {
+            openLogin();
             return;
         }
 
-        ejecutarLoginApi(user, password);
+        setContentView(R.layout.activity_menu);
+
+        initViews();
+        setupListeners();
+        configurarMenuPorRol();
     }
 
-    private void ejecutarLoginApi(String user, String password) {
-        mostrarCargando(true);
+    private void initViews() {
+        txtMenuUserRole = findViewById(R.id.txtMenuUserRole);
+        txtMenuSinPermisos = findViewById(R.id.txtMenuSinPermisos);
 
-        LoginRequest request = new LoginRequest(user, password);
-        RetrofitClient.getInstance().getApiService().login(request).enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                mostrarCargando(false);
+        btnEstudiantes = findViewById(R.id.btnMenuEstudiantes);
+        btnDocentes = findViewById(R.id.btnMenuDocentes);
+        btnCursos = findViewById(R.id.btnMenuCursos);
+        btnInscripciones = findViewById(R.id.btnMenuInscripciones);
+        btnNotas = findViewById(R.id.btnMenuNotas);
+        btnConsultarNotas = findViewById(R.id.btnMenuConsultarNotas);
+        btnConsultarCursos = findViewById(R.id.btnMenuConsultarCursos);
+        btnConsultarCursosAsignados = findViewById(R.id.btnMenuConsultarCursosAsignados);
+        btnCerrarSesion = findViewById(R.id.btnMenuCerrarSesion);
+    }
 
-                if (response.isSuccessful() && response.body() != null) {
-                    LoginResponse loginResponse = response.body();
-                    String token = loginResponse.getEffectiveToken();
-                    String tokenToSave = (token != null && !token.trim().isEmpty()) ? token : "AUTH-TOKEN-OK";
+    private void setupListeners() {
+        btnEstudiantes.setOnClickListener(v ->
+                startActivity(new Intent(this, EstudiantesActivity.class)));
 
-                    mostrarMensaje("Bienvenido, validación exitosa");
+        btnDocentes.setOnClickListener(v -> showUpcomingModule("Docentes"));
 
-                    if (chkRecordar.isChecked()) {
-                        guardarSesion(user, password, tokenToSave);
-                        mostrarMensaje("Sesión registrada correctamente");
-                    } else {
-                        limpiarSesion();
-                    }
-                } else {
-                    String mensajeError;
-                    int code = response.code();
+        btnCursos.setOnClickListener(v ->
+                startActivity(new Intent(this, CursosActivity.class)));
 
-                    if (code == 401 || code == 403) {
-                        mensajeError = "Usuario o contraseña incorrectos";
-                    } else if (code == 404) {
-                        mensajeError = "Servicio de autenticación no encontrado (404)";
-                    } else if (code >= 500) {
-                        mensajeError = "Error en el servidor (" + code + ")";
-                    } else {
-                        mensajeError = "Error en la autenticación (Código " + code + ")";
-                    }
+        btnInscripciones.setOnClickListener(v ->
+                startActivity(
+                        new Intent(
+                                this,
+                                InscripcionesActivity.class
+                        )
+                )
+        );
+        btnNotas.setOnClickListener(v -> showUpcomingModule("Notas"));
+        btnConsultarNotas.setOnClickListener(v ->
+                startActivity(new Intent(this, NotasActivity.class)));
+        btnConsultarCursos.setOnClickListener(v ->
+                startActivity(new Intent(this, CursosActivity.class)));
+        btnConsultarCursosAsignados.setOnClickListener(v -> showUpcomingModule("Consulta de Cursos Asignados"));
 
-                    mostrarMensaje(mensajeError);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                mostrarCargando(false);
-                mostrarMensaje("Error de conexión: " + (t.getMessage() != null ? t.getMessage() : "No se pudo contactar al servidor"));
-            }
+        btnCerrarSesion.setOnClickListener(v -> {
+            TokenManager.getInstance(this).clearToken();
+            openLogin();
         });
     }
 
-    private void mostrarCargando(boolean cargando) {
-        if (cargando) {
-            progressBarLogin.setVisibility(View.VISIBLE);
-            btnLogin.setEnabled(false);
-            btnLogin.setText("");
-            edtUsuario.setEnabled(false);
-            edtPassword.setEnabled(false);
-            chkRecordar.setEnabled(false);
+    private void configurarMenuPorRol() {
+        TokenManager tokenManager = TokenManager.getInstance(this);
+        String role = tokenManager.getRole();
+        String username = tokenManager.getUsername();
+
+        // Recuperar del JWT si la sesión no guardó previamente el rol o usuario
+        String token = tokenManager.getToken();
+        if ((role == null || role.trim().isEmpty()) && token != null) {
+            role = JwtUtils.extractRole(token);
+            if (role != null) {
+                tokenManager.saveSession(token, role, username);
+            }
+        }
+        if ((username == null || username.trim().isEmpty()) && token != null) {
+            username = JwtUtils.extractUsername(token);
+            if (username != null) {
+                tokenManager.saveSession(token, role, username);
+            }
+        }
+
+        String normalized = role != null ? role.trim().toUpperCase() : "";
+
+        // Ocultar todas las opciones por defecto
+        ocultarTodasLasOpciones();
+
+        if (normalized.contains("DOCENTE")) {
+            // Rol Docente: Solo Gestionar Notas y Consultar Cursos Asignados
+            actualizarIndicadorRol(getString(R.string.role_docente), username);
+            btnNotas.setVisibility(View.VISIBLE);
+            btnConsultarCursosAsignados.setVisibility(View.VISIBLE);
+            txtMenuSinPermisos.setVisibility(View.GONE);
+
+        } else if (normalized.contains("ESTUDIANTE") || normalized.contains("ALUMNO")) {
+            // Rol Estudiante: Solo Consultar Notas y Consultar Cursos
+            actualizarIndicadorRol(getString(R.string.role_estudiante), username);
+            btnConsultarNotas.setVisibility(View.VISIBLE);
+            btnConsultarCursos.setVisibility(View.VISIBLE);
+            txtMenuSinPermisos.setVisibility(View.GONE);
+
+        } else if (normalized.contains("ADMIN")) {
+            // Rol Admin: Gestionar Estudiantes, Docentes, Cursos e Inscripciones
+            actualizarIndicadorRol(getString(R.string.role_admin), username);
+            btnEstudiantes.setVisibility(View.VISIBLE);
+            btnDocentes.setVisibility(View.VISIBLE);
+            btnCursos.setVisibility(View.VISIBLE);
+            btnInscripciones.setVisibility(View.VISIBLE);
+            txtMenuSinPermisos.setVisibility(View.GONE);
+
         } else {
-            progressBarLogin.setVisibility(View.GONE);
-            btnLogin.setEnabled(true);
-            btnLogin.setText(R.string.login);
-            edtUsuario.setEnabled(true);
-            edtPassword.setEnabled(true);
-            chkRecordar.setEnabled(true);
+            // Rol desconocido o ausente: Solo mostrar opción de cerrar sesión
+            actualizarIndicadorRol(getString(R.string.role_sin_rol), username);
+            txtMenuSinPermisos.setVisibility(View.VISIBLE);
+        }
+
+        // Cerrar sesión siempre está visible
+        btnCerrarSesion.setVisibility(View.VISIBLE);
+    }
+
+    private void ocultarTodasLasOpciones() {
+        btnEstudiantes.setVisibility(View.GONE);
+        btnDocentes.setVisibility(View.GONE);
+        btnCursos.setVisibility(View.GONE);
+        btnInscripciones.setVisibility(View.GONE);
+        btnNotas.setVisibility(View.GONE);
+        btnConsultarNotas.setVisibility(View.GONE);
+        btnConsultarCursos.setVisibility(View.GONE);
+        btnConsultarCursosAsignados.setVisibility(View.GONE);
+    }
+
+    private void actualizarIndicadorRol(String roleDisplay, String username) {
+        if (txtMenuUserRole == null) return;
+        if (username != null && !username.trim().isEmpty()) {
+            txtMenuUserRole.setText(getString(R.string.menu_user_session, roleDisplay, username));
+        } else {
+            txtMenuUserRole.setText(getString(R.string.menu_user_session_no_user, roleDisplay));
         }
     }
 
-    private void guardarSesion(String user, String password, String token) {
-        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(KEY_USER_NAME, user);
-        editor.putString(KEY_USER_PASS, password);
-        editor.putString(KEY_AUTH_TOKEN, token);
-        editor.apply();
+    private void showUpcomingModule(String moduleName) {
+        Toast.makeText(this, getString(R.string.msg_modulo_en_desarrollo, moduleName), Toast.LENGTH_SHORT).show();
     }
 
-    private void cargarSesion() {
-        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        String user = preferences.getString(KEY_USER_NAME, "");
-        String password = preferences.getString(KEY_USER_PASS, "");
-        String authToken = preferences.getString(KEY_AUTH_TOKEN, "");
-
-        if (!user.isEmpty()) {
-            edtUsuario.setText(user);
-        }
-
-        if (!password.isEmpty()) {
-            edtPassword.setText(password);
-        }
-
-        if (!user.isEmpty() || !password.isEmpty() || !authToken.isEmpty()) {
-            chkRecordar.setChecked(true);
-        }
-    }
-
-    private void limpiarSesion() {
-        SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.remove(KEY_USER_NAME);
-        editor.remove(KEY_USER_PASS);
-        editor.remove(KEY_AUTH_TOKEN);
-        editor.apply();
-    }
-
-    private void mostrarMensaje(String mensaje) {
-        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
+    private void openLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 }

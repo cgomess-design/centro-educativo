@@ -7,21 +7,12 @@ public class LoginRequest {
     @SerializedName("username")
     private String username;
 
-    @SerializedName("email")
-    private String email;
-
     @SerializedName("password")
     private String password;
 
-    public LoginRequest(String identifier, String password) {
+    public LoginRequest(String username, String password) {
+        this.username = username;
         this.password = password;
-        if (identifier != null && identifier.contains("@")) {
-            this.email = identifier;
-            this.username = identifier;
-        } else {
-            this.username = identifier;
-            this.email = null;
-        }
     }
 
     public String getUsername() {
@@ -30,14 +21,6 @@ public class LoginRequest {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getPassword() {
