@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "302276771028",
+    "project_id": "centro-educativog1",
+    "storage_bucket": "centro-educativog1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302276771028:android:a58756ed2f6a5492f1cf41",
+        "android_client_info": {
+          "package_name": "gt.com.ro.devumgapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA26mFtSiBcemaAF5NPy_fKeyIB5V-Lwvk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

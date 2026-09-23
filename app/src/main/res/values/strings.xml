@@ -45,4 +45,16 @@
     <string name="menu_user_session_no_user">Rol: %1$s</string>
     <string name="msg_sin_permisos">Tu usuario no cuenta con opciones de acceso asignadas.</string>
 
+    <!-- Actualización de la Aplicación -->
+    <string name="update_dialog_title">Actualización disponible</string>
+    <string name="update_dialog_message">Hay una nueva versión disponible (v%1$s). ¿Deseas actualizar ahora?</string>
+    <string name="update_btn_confirm">Actualizar</string>
+    <string name="update_btn_later">Ahora no</string>
+    <string name="update_downloading_title">Descargando actualización</string>
+    <string name="update_downloading_message">Descargando nueva versión (%1$d%%)...</string>
+    <string name="update_download_error">No se pudo descargar la actualización. Por favor, verifica tu conexión.</string>
+    <string name="update_permission_title">Permiso necesario</string>
+    <string name="update_permission_message">Para instalar la actualización, debes permitir que esta aplicación instale paquetes desconocidos.</string>
+    <string name="update_permission_btn">Configuración</string>
+
 </resources>
