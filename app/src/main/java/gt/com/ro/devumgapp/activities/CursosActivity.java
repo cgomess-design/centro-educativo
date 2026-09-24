@@ -21,11 +21,9 @@ import gt.com.ro.devumgapp.adapters.CursoAdapter;
 import gt.com.ro.devumgapp.adapters.InscripcionAdapter;
 import gt.com.ro.devumgapp.network.RetrofitClient;
 import gt.com.ro.devumgapp.network.model.Curso;
-import gt.com.ro.devumgapp.network.model.Docente;
 import gt.com.ro.devumgapp.network.model.Inscripcion;
 import gt.com.ro.devumgapp.utils.ApiErrorHandler;
 import gt.com.ro.devumgapp.utils.CursoJsonMapper;
-import gt.com.ro.devumgapp.utils.DocenteJsonMapper;
 import gt.com.ro.devumgapp.utils.InscripcionJsonMapper;
 import gt.com.ro.devumgapp.utils.TokenManager;
 import retrofit2.Call;
@@ -123,47 +121,10 @@ public class CursosActivity extends AppCompatActivity {
                 });
     }
 
-    /** Obtiene la identidad docente asociada al JWT antes de consultar sus cursos. */
+    /** Consulta directamente los cursos asociados al docente autenticado. */
     private void cargarCursosDelDocente() {
         setLoading(true);
-        RetrofitClient.getInstance(this).getApiService().obtenerMiPerfilDocente()
-                .enqueue(new Callback<JsonElement>() {
-                    @Override
-                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
-                        if (handleUnauthorized(response)) {
-                            setLoading(false);
-                            return;
-                        }
-                        if (!response.isSuccessful() || response.body() == null) {
-                            setLoading(false);
-                            showMessage(ApiErrorHandler.getMessage(response));
-                            return;
-                        }
-                        try {
-                            Docente docente = DocenteJsonMapper.toDocente(response.body());
-                            if (docente.getId() == null || docente.getId() <= 0) {
-                                setLoading(false);
-                                showMessage("No se pudo identificar el docente de la sesión.");
-                                return;
-                            }
-                            cargarCursosPorDocente(docente.getId());
-                        } catch (IllegalArgumentException error) {
-                            setLoading(false);
-                            showMessage("El servidor devolvió un docente inválido.");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<JsonElement> call, Throwable error) {
-                        setLoading(false);
-                        showMessage(ApiErrorHandler.getNetworkMessage(error));
-                    }
-                });
-    }
-
-    /** Filtra usando exclusivamente el id devuelto por GET docentes/me. */
-    private void cargarCursosPorDocente(long docenteId) {
-        RetrofitClient.getInstance(this).getApiService().obtenerCursos()
+        RetrofitClient.getInstance(this).getApiService().obtenerCursosDelDocenteActual()
                 .enqueue(new Callback<JsonElement>() {
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
@@ -175,8 +136,6 @@ public class CursosActivity extends AppCompatActivity {
                         }
                         try {
                             List<Curso> cursos = CursoJsonMapper.toList(response.body());
-                            cursos.removeIf(curso -> curso.getDocenteId() == null
-                                    || curso.getDocenteId() != docenteId);
                             cursoAdapter.submitList(cursos);
                             emptyView.setVisibility(cursos.isEmpty() ? View.VISIBLE : View.GONE);
                         } catch (IllegalArgumentException error) {
