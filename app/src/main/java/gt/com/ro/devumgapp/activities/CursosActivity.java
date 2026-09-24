@@ -21,15 +21,18 @@ import gt.com.ro.devumgapp.adapters.CursoAdapter;
 import gt.com.ro.devumgapp.adapters.InscripcionAdapter;
 import gt.com.ro.devumgapp.network.RetrofitClient;
 import gt.com.ro.devumgapp.network.model.Curso;
+import gt.com.ro.devumgapp.network.model.Docente;
 import gt.com.ro.devumgapp.network.model.Inscripcion;
 import gt.com.ro.devumgapp.utils.ApiErrorHandler;
 import gt.com.ro.devumgapp.utils.CursoJsonMapper;
+import gt.com.ro.devumgapp.utils.DocenteJsonMapper;
 import gt.com.ro.devumgapp.utils.InscripcionJsonMapper;
 import gt.com.ro.devumgapp.utils.TokenManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/** Muestra cursos según el rol autenticado, sin identificadores fijos. */
 public class CursosActivity extends AppCompatActivity {
 
     private CursoAdapter cursoAdapter;
@@ -37,6 +40,7 @@ public class CursosActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView emptyView;
     private boolean studentMode;
+    private boolean teacherMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +49,12 @@ public class CursosActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressCursos);
         emptyView = findViewById(R.id.txtCursosVacios);
+
         String role = TokenManager.getInstance(this).getRole();
-        studentMode = role != null
-                && (role.trim().toUpperCase().contains("ESTUDIANTE")
-                || role.trim().toUpperCase().contains("ALUMNO"));
+        String normalizedRole = role == null ? "" : role.trim().toUpperCase();
+        studentMode = normalizedRole.contains("ESTUDIANTE")
+                || normalizedRole.contains("ALUMNO");
+        teacherMode = normalizedRole.contains("DOCENTE");
 
         RecyclerView recycler = findViewById(R.id.recyclerCursos);
         recycler.setLayoutManager(new LinearLayoutManager(this));
@@ -58,21 +64,18 @@ public class CursosActivity extends AppCompatActivity {
             recycler.setAdapter(inscripcionAdapter);
             emptyView.setText("Aún no tienes cursos asignados.");
         } else {
-            cursoAdapter = new CursoAdapter(this::openDetail);
+            // El docente consulta; la edición de cursos sigue siendo exclusiva del módulo admin.
+            cursoAdapter = new CursoAdapter(teacherMode ? null : this::openDetail);
             recycler.setAdapter(cursoAdapter);
+            if (teacherMode) {
+                emptyView.setText("No tienes cursos asignados.");
+            }
         }
 
         Button add = findViewById(R.id.btnAgregarCurso);
-        add.setVisibility(studentMode ? View.GONE : View.VISIBLE);
-
+        add.setVisibility(studentMode || teacherMode ? View.GONE : View.VISIBLE);
         add.setOnClickListener(v ->
-                startActivity(
-                        new Intent(
-                                this,
-                                FormCursoActivity.class
-                        )
-                )
-        );
+                startActivity(new Intent(this, FormCursoActivity.class)));
     }
 
     @Override
@@ -82,114 +85,33 @@ public class CursosActivity extends AppCompatActivity {
     }
 
     private void cargarCursos() {
-
         if (studentMode) {
             cargarCursosDelEstudiante();
-            return;
+        } else if (teacherMode) {
+            cargarCursosDelDocente();
+        } else {
+            cargarTodosLosCursos();
         }
-
-        setLoading(true);
-
-        RetrofitClient.getInstance(this)
-                .getApiService()
-                .obtenerCursos()
-                .enqueue(new Callback<JsonElement>() {
-
-                    @Override
-                    public void onResponse(
-                            Call<JsonElement> call,
-                            Response<JsonElement> response
-                    ) {
-
-                        setLoading(false);
-
-                        if (response.code() == 401) {
-                            ApiErrorHandler.handleUnauthorized(
-                                    CursosActivity.this
-                            );
-                            return;
-                        }
-
-                        if (!response.isSuccessful()
-                                || response.body() == null) {
-
-                            showMessage(
-                                    ApiErrorHandler.getMessage(response)
-                            );
-                            return;
-                        }
-
-                        try {
-
-                            List<Curso> cursos =
-                                    CursoJsonMapper.toList(
-                                            response.body()
-                                    );
-
-                            cursoAdapter.submitList(cursos);
-
-                            emptyView.setVisibility(
-                                    cursos.isEmpty()
-                                            ? View.VISIBLE
-                                            : View.GONE
-                            );
-
-                        } catch (IllegalArgumentException error) {
-
-                            showMessage(
-                                    "El servidor devolvió una lista de cursos inválida."
-                            );
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(
-                            Call<JsonElement> call,
-                            Throwable error
-                    ) {
-
-                        setLoading(false);
-
-                        showMessage(
-                                ApiErrorHandler.getNetworkMessage(error)
-                        );
-                    }
-                });
     }
 
-    private void cargarCursosDelEstudiante() {
+    private void cargarTodosLosCursos() {
         setLoading(true);
-
-        RetrofitClient.getInstance(this)
-                .getApiService()
-                .obtenerMisInscripciones()
+        RetrofitClient.getInstance(this).getApiService().obtenerCursos()
                 .enqueue(new Callback<JsonElement>() {
                     @Override
-                    public void onResponse(
-                            Call<JsonElement> call,
-                            Response<JsonElement> response
-                    ) {
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         setLoading(false);
-
-                        if (response.code() == 401) {
-                            ApiErrorHandler.handleUnauthorized(CursosActivity.this);
-                            return;
-                        }
-
+                        if (handleUnauthorized(response)) return;
                         if (!response.isSuccessful() || response.body() == null) {
                             showMessage(ApiErrorHandler.getMessage(response));
                             return;
                         }
-
                         try {
-                            List<Inscripcion> inscripciones =
-                                    InscripcionJsonMapper.toList(response.body());
-                            inscripcionAdapter.submitList(inscripciones);
-                            emptyView.setVisibility(
-                                    inscripciones.isEmpty() ? View.VISIBLE : View.GONE);
+                            List<Curso> cursos = CursoJsonMapper.toList(response.body());
+                            cursoAdapter.submitList(cursos);
+                            emptyView.setVisibility(cursos.isEmpty() ? View.VISIBLE : View.GONE);
                         } catch (IllegalArgumentException error) {
-                            showMessage(
-                                    "El servidor devolvió una lista de inscripciones inválida.");
+                            showMessage("El servidor devolvió una lista de cursos inválida.");
                         }
                     }
 
@@ -201,39 +123,122 @@ public class CursosActivity extends AppCompatActivity {
                 });
     }
 
+    /** Obtiene la identidad docente asociada al JWT antes de consultar sus cursos. */
+    private void cargarCursosDelDocente() {
+        setLoading(true);
+        RetrofitClient.getInstance(this).getApiService().obtenerMiPerfilDocente()
+                .enqueue(new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                        if (handleUnauthorized(response)) {
+                            setLoading(false);
+                            return;
+                        }
+                        if (!response.isSuccessful() || response.body() == null) {
+                            setLoading(false);
+                            showMessage(ApiErrorHandler.getMessage(response));
+                            return;
+                        }
+                        try {
+                            Docente docente = DocenteJsonMapper.toDocente(response.body());
+                            if (docente.getId() == null || docente.getId() <= 0) {
+                                setLoading(false);
+                                showMessage("No se pudo identificar el docente de la sesión.");
+                                return;
+                            }
+                            cargarCursosPorDocente(docente.getId());
+                        } catch (IllegalArgumentException error) {
+                            setLoading(false);
+                            showMessage("El servidor devolvió un docente inválido.");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable error) {
+                        setLoading(false);
+                        showMessage(ApiErrorHandler.getNetworkMessage(error));
+                    }
+                });
+    }
+
+    /** Filtra usando exclusivamente el id devuelto por GET docentes/me. */
+    private void cargarCursosPorDocente(long docenteId) {
+        RetrofitClient.getInstance(this).getApiService().obtenerCursos()
+                .enqueue(new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                        setLoading(false);
+                        if (handleUnauthorized(response)) return;
+                        if (!response.isSuccessful() || response.body() == null) {
+                            showMessage(ApiErrorHandler.getMessage(response));
+                            return;
+                        }
+                        try {
+                            List<Curso> cursos = CursoJsonMapper.toList(response.body());
+                            cursos.removeIf(curso -> curso.getDocenteId() == null
+                                    || curso.getDocenteId() != docenteId);
+                            cursoAdapter.submitList(cursos);
+                            emptyView.setVisibility(cursos.isEmpty() ? View.VISIBLE : View.GONE);
+                        } catch (IllegalArgumentException error) {
+                            showMessage("El servidor devolvió una lista de cursos inválida.");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable error) {
+                        setLoading(false);
+                        showMessage(ApiErrorHandler.getNetworkMessage(error));
+                    }
+                });
+    }
+
+    private void cargarCursosDelEstudiante() {
+        setLoading(true);
+        RetrofitClient.getInstance(this).getApiService().obtenerMisInscripciones()
+                .enqueue(new Callback<JsonElement>() {
+                    @Override
+                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
+                        setLoading(false);
+                        if (handleUnauthorized(response)) return;
+                        if (!response.isSuccessful() || response.body() == null) {
+                            showMessage(ApiErrorHandler.getMessage(response));
+                            return;
+                        }
+                        try {
+                            List<Inscripcion> inscripciones =
+                                    InscripcionJsonMapper.toList(response.body());
+                            inscripcionAdapter.submitList(inscripciones);
+                            emptyView.setVisibility(inscripciones.isEmpty() ? View.VISIBLE : View.GONE);
+                        } catch (IllegalArgumentException error) {
+                            showMessage("El servidor devolvió una lista de inscripciones inválida.");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<JsonElement> call, Throwable error) {
+                        setLoading(false);
+                        showMessage(ApiErrorHandler.getNetworkMessage(error));
+                    }
+                });
+    }
+
+    private boolean handleUnauthorized(Response<?> response) {
+        if (response.code() != 401) return false;
+        ApiErrorHandler.handleUnauthorized(this);
+        return true;
+    }
+
     private void openDetail(Curso curso) {
-
-        Intent intent =
-                new Intent(
-                        this,
-                        DetalleCursoActivity.class
-                );
-
-        intent.putExtra(
-                DetalleCursoActivity.EXTRA_CURSO_ID,
-                curso.getId()
-        );
-
+        Intent intent = new Intent(this, DetalleCursoActivity.class);
+        intent.putExtra(DetalleCursoActivity.EXTRA_CURSO_ID, curso.getId());
         startActivity(intent);
     }
 
     private void setLoading(boolean loading) {
-
-        progressBar.setVisibility(
-                loading
-                        ? View.VISIBLE
-                        : View.GONE
-        );
+        progressBar.setVisibility(loading ? View.VISIBLE : View.GONE);
     }
 
     private void showMessage(String message) {
-
-        Toast.makeText(
-                this,
-                message,
-                Toast.LENGTH_LONG
-        ).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }
-
-

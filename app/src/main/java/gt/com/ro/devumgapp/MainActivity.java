@@ -84,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, NotasActivity.class)));
         btnConsultarCursos.setOnClickListener(v ->
                 startActivity(new Intent(this, CursosActivity.class)));
-        btnConsultarCursosAsignados.setOnClickListener(v -> showUpcomingModule("Consulta de Cursos Asignados"));
+        btnConsultarCursosAsignados.setOnClickListener(v ->
+                startActivity(new Intent(this, CursosActivity.class)));
 
         btnCerrarSesion.setOnClickListener(v -> {
             TokenManager.getInstance(this).clearToken();

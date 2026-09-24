@@ -84,6 +84,10 @@ public interface ApiService extends AuthService {
     @GET("docentes/{id}")
     Call<JsonElement> obtenerDocente(@Path("id") long id);
 
+    /** Docente asociado al usuario autenticado por el JWT. */
+    @GET("docentes/me")
+    Call<JsonElement> obtenerMiPerfilDocente();
+
     @POST("docentes")
     Call<JsonElement> crearDocente(@Body DocenteRequest request);
 
