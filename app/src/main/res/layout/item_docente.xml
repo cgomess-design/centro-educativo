@@ -26,7 +26,21 @@
             android:textAppearance="@style/TextAppearance.Centro.CardTitle" />
 
         <TextView
-            android:id="@+id/txtCorreoDocente"
+            android:id="@+id/txtEmailInstitucionalDocente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textAppearance="@style/TextAppearance.Centro.Body" />
+
+        <TextView
+            android:id="@+id/txtEmailPersonalDocente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textAppearance="@style/TextAppearance.Centro.Body" />
+
+        <TextView
+            android:id="@+id/txtDpiDocente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -38,6 +52,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textAppearance="@style/TextAppearance.Centro.Body" />
+
+        <TextView
+            android:id="@+id/txtEspecialidadDocente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textAppearance="@style/TextAppearance.Centro.Body" />
+
+        <TextView
+            android:id="@+id/txtFechaContratacionDocente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textAppearance="@style/TextAppearance.Centro.Body" />
+
 
     </LinearLayout>
 
