@@ -1,49 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/screen_background"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_surface_card"
+        android:elevation="2dp"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Registro de Nota"
-            android:textSize="26sp"
-            android:textStyle="bold" />
+            android:textAppearance="@style/TextAppearance.Centro.ScreenTitle" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Estudiante" />
+            android:text="Estudiante"
+            android:textAppearance="@style/TextAppearance.Centro.Label" />
 
         <Spinner
             android:id="@+id/spnEstudianteNota"
+            style="@style/Widget.Centro.Spinner"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
             android:layout_marginTop="4dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Curso" />
+            android:text="Curso"
+            android:textAppearance="@style/TextAppearance.Centro.Label" />
 
         <Spinner
             android:id="@+id/spnCursoNota"
+            style="@style/Widget.Centro.Spinner"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
             android:layout_marginTop="4dp" />
 
         <EditText
             android:id="@+id/edtValorNota"
+            style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="Calificación (0.0 - 100.0)"
             android:inputType="numberDecimal" />
@@ -54,6 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Activo"
+            android:textColor="@color/text_primary"
             android:textSize="16sp" />
 
         <ProgressBar
@@ -62,12 +69,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:indeterminateTint="@color/primary_blue"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/btnGuardarNota"
+            style="@style/Widget.Centro.PrimaryButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="GUARDAR" />
 

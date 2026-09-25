@@ -1,15 +1,17 @@
 <resources>
     <string name="app_name">Centro Educativo</string>
     <!-- Login -->
-    <string name="app_title">CENTRO EDUCATIVO</string>
-    <string name="app_subtitle">SISTEMA DE GESTIÓN</string>
+    <string name="app_title">Centro Educativo</string>
+    <string name="app_subtitle">Gestión académica</string>
+    <string name="login_title">Inicia sesión</string>
+    <string name="login_supporting_text">Ingresa con tu usuario o correo institucional</string>
 
     <string name="username_hint">Usuario</string>
     <string name="password_hint">Contraseña</string>
 
     <string name="remember_me">Recuérdame</string>
 
-    <string name="login">INICIAR SESIÓN</string>
+    <string name="login">Iniciar sesión</string>
 
     <string name="forgot_password">¿Olvidaste tu contraseña?</string>
 
@@ -23,17 +25,17 @@
     <string name="copyright">© 2026 UmgDev. Todos los derechos reservados.</string>
 
     <!-- Menú Principal -->
-    <string name="menu_title">CENTRO EDUCATIVO</string>
-    <string name="menu_subtitle">MENÚ DE GESTIÓN</string>
-    <string name="menu_estudiantes">GESTIONAR ESTUDIANTES</string>
-    <string name="menu_docentes">GESTIONAR DOCENTES</string>
-    <string name="menu_cursos">GESTIONAR CURSOS</string>
-    <string name="menu_inscripciones">GESTIONAR INSCRIPCIONES</string>
-    <string name="menu_notas">GESTIONAR NOTAS</string>
-    <string name="menu_consultar_notas">CONSULTAR NOTAS</string>
-    <string name="menu_consultar_cursos">CONSULTAR CURSOS</string>
-    <string name="menu_consultar_cursos_asignados">CONSULTAR CURSOS ASIGNADOS</string>
-    <string name="menu_cerrar_sesion">CERRAR SESIÓN</string>
+    <string name="menu_title">Centro Educativo</string>
+    <string name="menu_subtitle">Tus accesos</string>
+    <string name="menu_estudiantes">Estudiantes</string>
+    <string name="menu_docentes">Docentes</string>
+    <string name="menu_cursos">Cursos</string>
+    <string name="menu_inscripciones">Inscripciones</string>
+    <string name="menu_notas">Gestionar notas</string>
+    <string name="menu_consultar_notas">Mis notas</string>
+    <string name="menu_consultar_cursos">Mis cursos</string>
+    <string name="menu_consultar_cursos_asignados">Cursos asignados</string>
+    <string name="menu_cerrar_sesion">Cerrar sesión</string>
     <string name="msg_modulo_en_desarrollo">El módulo de %1$s estará disponible próximamente.</string>
 
     <!-- Roles e Indicador de Usuario -->
@@ -41,8 +43,8 @@
     <string name="role_estudiante">ESTUDIANTE</string>
     <string name="role_admin">ADMINISTRADOR</string>
     <string name="role_sin_rol">SIN ROL ASIGNADO</string>
-    <string name="menu_user_session">Sesión: %1$s • %2$s</string>
-    <string name="menu_user_session_no_user">Rol: %1$s</string>
+    <string name="menu_user_session">Hola, %2$s · %1$s</string>
+    <string name="menu_user_session_no_user">Bienvenido · %1$s</string>
     <string name="msg_sin_permisos">Tu usuario no cuenta con opciones de acceso asignadas.</string>
 
     <!-- Actualización de la Aplicación -->

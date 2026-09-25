@@ -2,20 +2,24 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/screen_background"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_surface_card"
+        android:elevation="2dp"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Detalle del curso"
-            android:textSize="26sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Centro.ScreenTitle"
             tools:ignore="HardcodedText" />
 
         <ProgressBar
@@ -24,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:indeterminateTint="@color/primary_blue"
             android:visibility="gone" />
 
         <TextView
@@ -38,7 +43,7 @@
             android:id="@+id/txtDetalleCodigoCurso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="17sp" />
+            android:textAppearance="@style/TextAppearance.Centro.Value" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +57,7 @@
             android:id="@+id/txtDetalleNombreCurso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="17sp" />
+            android:textAppearance="@style/TextAppearance.Centro.Value" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,7 +71,7 @@
             android:id="@+id/txtDetalleCreditosCurso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="17sp" />
+            android:textAppearance="@style/TextAppearance.Centro.Value" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -80,7 +85,7 @@
             android:id="@+id/txtDetalleCarreraCurso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="17sp" />
+            android:textAppearance="@style/TextAppearance.Centro.Value" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -94,7 +99,7 @@
             android:id="@+id/txtDetalleDocenteCurso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="17sp" />
+            android:textAppearance="@style/TextAppearance.Centro.Value" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -108,20 +113,20 @@
             android:id="@+id/txtDetalleEstadoCurso"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="17sp" />
+            android:textAppearance="@style/TextAppearance.Centro.Value" />
 
         <Button
             android:id="@+id/btnEditarCurso"
+            style="@style/Widget.Centro.PrimaryButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:text="EDITAR"
             tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/btnEliminarCurso"
+            style="@style/Widget.Centro.DangerButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:text="ELIMINAR / DESACTIVAR"
             tools:ignore="HardcodedText" />
