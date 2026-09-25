@@ -79,7 +79,8 @@ public class MainActivity extends AppCompatActivity {
                         )
                 )
         );
-        btnNotas.setOnClickListener(v -> showUpcomingModule("Notas"));
+        btnNotas.setOnClickListener(v ->
+                startActivity(new Intent(this, NotasActivity.class)));
         btnConsultarNotas.setOnClickListener(v ->
                 startActivity(new Intent(this, NotasActivity.class)));
         btnConsultarCursos.setOnClickListener(v ->

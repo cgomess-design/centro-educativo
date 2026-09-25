@@ -25,12 +25,10 @@ import gt.com.ro.devumgapp.R;
 import gt.com.ro.devumgapp.adapters.NotaAdapter;
 import gt.com.ro.devumgapp.network.RetrofitClient;
 import gt.com.ro.devumgapp.network.model.Curso;
-import gt.com.ro.devumgapp.network.model.Docente;
 import gt.com.ro.devumgapp.network.model.Inscripcion;
 import gt.com.ro.devumgapp.network.model.Nota;
 import gt.com.ro.devumgapp.utils.ApiErrorHandler;
 import gt.com.ro.devumgapp.utils.CursoJsonMapper;
-import gt.com.ro.devumgapp.utils.DocenteJsonMapper;
 import gt.com.ro.devumgapp.utils.InscripcionJsonMapper;
 import gt.com.ro.devumgapp.utils.NotaJsonMapper;
 import gt.com.ro.devumgapp.utils.TokenManager;
@@ -153,46 +151,10 @@ public class NotasActivity extends AppCompatActivity {
         });
     }
 
-    /** Resuelve el docente desde JWT -> usuario -> docente antes de cargar cursos. */
+    /** Consulta directamente los cursos asociados al docente autenticado. */
     private void cargarCursosDelDocente() {
         setLoading(true);
-        RetrofitClient.getInstance(this).getApiService().obtenerMiPerfilDocente()
-                .enqueue(new Callback<JsonElement>() {
-                    @Override
-                    public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
-                        if (handleUnauthorized(response)) {
-                            setLoading(false);
-                            return;
-                        }
-                        if (!response.isSuccessful() || response.body() == null) {
-                            setLoading(false);
-                            showMessage(ApiErrorHandler.getMessage(response));
-                            return;
-                        }
-                        try {
-                            Docente docente = DocenteJsonMapper.toDocente(response.body());
-                            if (docente.getId() == null || docente.getId() <= 0) {
-                                setLoading(false);
-                                showMessage("No se pudo identificar el docente de la sesión.");
-                                return;
-                            }
-                            cargarCursosDelDocente(docente.getId());
-                        } catch (IllegalArgumentException error) {
-                            setLoading(false);
-                            showMessage("El servidor devolvió un docente inválido.");
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<JsonElement> call, Throwable error) {
-                        setLoading(false);
-                        showMessage(ApiErrorHandler.getNetworkMessage(error));
-                    }
-                });
-    }
-
-    private void cargarCursosDelDocente(long docenteId) {
-        RetrofitClient.getInstance(this).getApiService().obtenerCursos()
+        RetrofitClient.getInstance(this).getApiService().obtenerCursosDelDocenteActual()
                 .enqueue(new Callback<JsonElement>() {
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
@@ -203,15 +165,7 @@ public class NotasActivity extends AppCompatActivity {
                             return;
                         }
                         try {
-                            List<Curso> cursos = CursoJsonMapper.toList(response.body());
-                            List<Curso> propios = new ArrayList<>();
-                            for (Curso curso : cursos) {
-                                if (curso.getDocenteId() != null
-                                        && curso.getDocenteId() == docenteId) {
-                                    propios.add(curso);
-                                }
-                            }
-                            mostrarCursosDelDocente(propios);
+                            mostrarCursosDelDocente(CursoJsonMapper.toList(response.body()));
                         } catch (IllegalArgumentException error) {
                             showMessage("El servidor devolvió una lista de cursos inválida.");
                         }
@@ -310,33 +264,40 @@ public class NotasActivity extends AppCompatActivity {
     }
 
     private void cargarNotasDelCurso(long cursoId) {
-        RetrofitClient.getInstance(this).getApiService().obtenerNotas()
+        RetrofitClient.getInstance(this)
+                .getApiService()
+                .obtenerNotasPorCurso(cursoId)
                 .enqueue(new Callback<JsonElement>() {
                     @Override
                     public void onResponse(Call<JsonElement> call, Response<JsonElement> response) {
                         if (cursoId != selectedCourseId) return;
+
                         setLoading(false);
+
                         if (handleUnauthorized(response)) return;
+
                         if (!response.isSuccessful() || response.body() == null) {
                             showMessage(ApiErrorHandler.getMessage(response));
                             return;
                         }
+
                         try {
-                            List<Nota> notas = NotaJsonMapper.toList(response.body());
-                            List<Nota> notasDelCurso = new ArrayList<>();
-                            for (Nota nota : notas) {
-                                if (nota.getCursoId() != null && nota.getCursoId() == cursoId) {
-                                    notasDelCurso.add(nota);
-                                }
-                            }
+                            // El backend ya devuelve únicamente las notas del curso.
+                            List<Nota> notasDelCurso =
+                                    NotaJsonMapper.toList(response.body());
+
                             adapter.submitList(notasDelCurso);
+
                             if (notasDelCurso.isEmpty()) {
-                                emptyView.setText("No hay notas para este curso. Estudiantes inscritos: "
-                                        + enrolledStudents + ".");
+                                emptyView.setText(
+                                        "No hay notas para este curso. Estudiantes inscritos: "
+                                                + enrolledStudents + "."
+                                );
                                 emptyView.setVisibility(View.VISIBLE);
                             } else {
                                 emptyView.setVisibility(View.GONE);
                             }
+
                         } catch (IllegalArgumentException error) {
                             showMessage("El servidor devolvió una lista de notas inválida.");
                         }
@@ -345,12 +306,12 @@ public class NotasActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<JsonElement> call, Throwable error) {
                         if (cursoId != selectedCourseId) return;
+
                         setLoading(false);
                         showMessage(ApiErrorHandler.getNetworkMessage(error));
                     }
                 });
     }
-
     private void abrirFormularioNuevaNota() {
         Intent intent = new Intent(this, FormNotaActivity.class);
         if (teacherMode) {
