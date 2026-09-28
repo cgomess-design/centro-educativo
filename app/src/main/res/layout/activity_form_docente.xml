@@ -21,28 +21,44 @@
             android:textAppearance="@style/TextAppearance.Centro.ScreenTitle" />
 
         <EditText
-            android:id="@+id/edtNombresDocente"
+            android:id="@+id/edtNombreDocente"
             style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
             android:layout_marginTop="24dp"
-            android:hint="Nombres"
+            android:hint="Nombre"
             android:inputType="textCapWords" />
 
         <EditText
-            android:id="@+id/edtApellidosDocente"
+            android:id="@+id/edtApellidoDocente"
             style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
             android:layout_marginTop="12dp"
-            android:hint="Apellidos"
+            android:hint="Apellido"
             android:inputType="textCapWords" />
 
         <EditText
-            android:id="@+id/edtCorreoDocente"
+            android:id="@+id/edtEmailInstitucionalDocente"
             style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
             android:layout_marginTop="12dp"
-            android:hint="Correo Electrónico"
+            android:hint="Correo Institucional"
             android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/edtEmailPersonalDocente"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            android:hint="Correo Personal"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/edtDpiDocente"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            android:hint="DPI"
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/edtTelefonoDocente"
@@ -51,6 +67,25 @@
             android:layout_marginTop="12dp"
             android:hint="Teléfono"
             android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/edtEspecialidadDocente"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            android:hint="Especialidad"
+            android:inputType="textCapSentences" />
+
+        <EditText
+            android:id="@+id/edtFechaContratacionDocente"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:hint="Fecha de Contratación (AAAA-MM-DD)"
+            android:inputType="none" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/swActivoDocente"

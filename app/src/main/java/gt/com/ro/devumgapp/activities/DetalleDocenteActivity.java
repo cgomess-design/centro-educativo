@@ -29,7 +29,7 @@ public class DetalleDocenteActivity extends AppCompatActivity {
 
     private long docenteId;
     private ProgressBar progressBar;
-    private TextView nombres, apellidos, correo, telefono, estado;
+    private TextView nombre, apellido, emailInstitucional, emailPersonal, dpi,  telefono, especialidad, fechaContratacion, estado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,10 +44,14 @@ public class DetalleDocenteActivity extends AppCompatActivity {
         }
 
         progressBar = findViewById(R.id.progressDetalleDocente);
-        nombres = findViewById(R.id.txtDetalleNombresDocente);
-        apellidos = findViewById(R.id.txtDetalleApellidosDocente);
-        correo = findViewById(R.id.txtDetalleCorreoDocente);
+        nombre = findViewById(R.id.txtDetalleNombresDocente);
+        apellido = findViewById(R.id.txtDetalleApellidosDocente);
+        emailInstitucional = findViewById(R.id.txtDetalleEmailInstitucionalDocente);
+        emailPersonal = findViewById(R.id.txtDetalleEmailPersonalDocente);
+        dpi = findViewById(R.id.txtDetalleDpiDocente);
         telefono = findViewById(R.id.txtDetalleTelefonoDocente);
+        especialidad = findViewById(R.id.txtDetalleEspecialidadDocente);
+        fechaContratacion = findViewById(R.id.txtDetalleFechaContratacionDocente);
         estado = findViewById(R.id.txtDetalleEstadoDocente);
 
         findViewById(R.id.btnEditarDocente).setOnClickListener(v -> {
@@ -81,7 +85,7 @@ public class DetalleDocenteActivity extends AppCompatActivity {
                 }
                 try {
                     bind(DocenteJsonMapper.toDocente(response.body()));
-                } catch (IllegalArgumentException error) {
+                } catch (Exception error) {
                     showMessage("El servidor devolvió un docente inválido.");
                 }
             }
@@ -95,10 +99,14 @@ public class DetalleDocenteActivity extends AppCompatActivity {
     }
 
     private void bind(Docente docente) {
-        nombres.setText(docente.getNombres());
-        apellidos.setText(docente.getApellidos());
-        correo.setText(docente.getCorreo());
+        nombre.setText(docente.getNombre());
+        apellido.setText(docente.getApellido());
+        emailInstitucional.setText(docente.getemailInstitucional());
+        emailPersonal.setText(docente.getEmailPersonal());
+        dpi.setText(docente.getDpi());
         telefono.setText(docente.getTelefono());
+        especialidad.setText(docente.getEspecialidad());
+        fechaContratacion.setText(docente.getFechaContratacion() != null ? docente.getFechaContratacion().toString() : "");
         estado.setText(Boolean.TRUE.equals(docente.getActivo()) ? "Activo" : "Inactivo");
     }
 

@@ -45,10 +45,14 @@ public class DocenteAdapter extends RecyclerView.Adapter<DocenteAdapter.DocenteV
     public void onBindViewHolder(@NonNull DocenteViewHolder holder, int position) {
         Docente docente = docentes.get(position);
 
-        String nombreCompleto = docente.getNombres() + " " + docente.getApellidos();
+        String nombreCompleto = docente.getNombre() + " " + docente.getApellido();
         holder.nombre.setText(nombreCompleto);
-        holder.correo.setText(docente.getCorreo());
+        holder.emailInstitucional.setText(docente.getemailInstitucional());
+        holder.emailPersonal.setText(docente.getEmailPersonal());
+        holder.dpi.setText(docente.getDpi());
         holder.telefono.setText(docente.getTelefono());
+        holder.especialidad.setText(docente.getEspecialidad());
+        holder.fechaContratacion.setText(docente.getFechaContratacion());
 
         holder.itemView.setOnClickListener(v -> listener.onDocenteClick(docente));
     }
@@ -60,14 +64,25 @@ public class DocenteAdapter extends RecyclerView.Adapter<DocenteAdapter.DocenteV
 
     static class DocenteViewHolder extends RecyclerView.ViewHolder {
         final TextView nombre;
-        final TextView correo;
+        final TextView emailInstitucional;
+        final TextView emailPersonal;
+
+        final TextView dpi;
         final TextView telefono;
+        final TextView especialidad;
+
+        final TextView fechaContratacion;
 
         DocenteViewHolder(@NonNull View itemView) {
             super(itemView);
             nombre = itemView.findViewById(R.id.txtNombreDocente);
-            correo = itemView.findViewById(R.id.txtCorreoDocente);
+            emailInstitucional = itemView.findViewById(R.id.txtEmailInstitucionalDocente);
+            emailPersonal = itemView.findViewById(R.id.txtEmailPersonalDocente);
+            dpi = itemView.findViewById(R.id.txtDpiDocente);
             telefono = itemView.findViewById(R.id.txtTelefonoDocente);
+            especialidad = itemView.findViewById(R.id.txtEspecialidadDocente);
+            fechaContratacion = itemView.findViewById(R.id.txtFechaContratacionDocente);
+
         }
     }
 }
