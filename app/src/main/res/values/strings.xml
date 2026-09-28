@@ -29,6 +29,7 @@
     <string name="menu_subtitle">Tus accesos</string>
     <string name="menu_estudiantes">Estudiantes</string>
     <string name="menu_docentes">Docentes</string>
+    <string name="menu_carreras">Carreras</string>
     <string name="menu_cursos">Cursos</string>
     <string name="menu_inscripciones">Inscripciones</string>
     <string name="menu_notas">Gestionar notas</string>

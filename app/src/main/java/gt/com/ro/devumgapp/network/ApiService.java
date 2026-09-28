@@ -2,6 +2,7 @@ package gt.com.ro.devumgapp.network;
 
 import com.google.gson.JsonElement;
 
+import gt.com.ro.devumgapp.network.model.CarreraRequest;
 import gt.com.ro.devumgapp.network.model.CursoRequest;
 import gt.com.ro.devumgapp.network.model.DocenteRequest;
 import gt.com.ro.devumgapp.network.model.EstudianteRequest;
@@ -18,6 +19,23 @@ import retrofit2.http.Query;
 
 /** Endpoints protegidos publicados por el backend SGAU. */
 public interface ApiService extends AuthService {
+
+    /** CARRERAS */
+
+    @GET("carreras")
+    Call<JsonElement> obtenerCarreras();
+
+    @GET("carreras/{id}")
+    Call<JsonElement> obtenerCarrera(@Path("id") long id);
+
+    @POST("carreras")
+    Call<JsonElement> crearCarrera(@Body CarreraRequest request);
+
+    @PUT("carreras/{id}")
+    Call<JsonElement> actualizarCarrera(@Path("id") long id, @Body CarreraRequest request);
+
+    @DELETE("carreras/{id}")
+    Call<JsonElement> eliminarCarrera(@Path("id") long id);
 
     @GET("estudiantes")
     Call<JsonElement> obtenerEstudiantes();
