@@ -50,11 +50,18 @@
     <!-- Actualización de la Aplicación -->
     <string name="update_dialog_title">Actualización disponible</string>
     <string name="update_dialog_message">Hay una nueva versión disponible (v%1$s). ¿Deseas actualizar ahora?</string>
+    <string name="update_recommended_title">Actualización recomendada</string>
+    <string name="update_recommended_message">Existe una nueva versión disponible. Se recomienda actualizar.</string>
+    <string name="update_mandatory_title">Actualización obligatoria</string>
+    <string name="update_mandatory_message">Esta versión ya no es compatible. Debe actualizar la aplicación para continuar.</string>
     <string name="update_btn_confirm">Actualizar</string>
     <string name="update_btn_later">Ahora no</string>
+    <string name="update_btn_continue">Continuar</string>
+    <string name="update_btn_exit">Salir</string>
     <string name="update_downloading_title">Descargando actualización</string>
     <string name="update_downloading_message">Descargando nueva versión (%1$d%%)...</string>
     <string name="update_download_error">No se pudo descargar la actualización. Por favor, verifica tu conexión.</string>
+    <string name="update_download_mandatory_error">No se pudo descargar la actualización obligatoria. Debes actualizar para continuar.</string>
     <string name="update_permission_title">Permiso necesario</string>
     <string name="update_permission_message">Para instalar la actualización, debes permitir que esta aplicación instale paquetes desconocidos.</string>
     <string name="update_permission_btn">Configuración</string>
