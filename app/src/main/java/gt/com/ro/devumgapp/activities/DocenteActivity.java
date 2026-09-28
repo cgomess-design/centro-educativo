@@ -89,7 +89,7 @@ public class DocenteActivity extends AppCompatActivity {
                             List<Docente> docentes = DocenteJsonMapper.toList(response.body());
                             adapter.submitList(docentes);
                             emptyView.setVisibility(docentes.isEmpty() ? View.VISIBLE : View.GONE);
-                        } catch (IllegalArgumentException error) {
+                        } catch (Exception error) {
                             showMessage("El servidor devolvió una lista de docentes inválida.");
                         }
                     }

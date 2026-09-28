@@ -2,7 +2,7 @@
 <resources>
     <!-- Márgenes y Padding -->
     <dimen name="margin_default">16dp</dimen>
-    <dimen name="card_padding">24dp</dimen>
+    <dimen name="card_padding">20dp</dimen>
     <dimen name="input_margin_vertical">12dp</dimen>
 
     <!-- Logo -->
@@ -10,15 +10,15 @@
     <dimen name="logo_icon_size">50dp</dimen>
 
     <!-- Campos -->
-    <dimen name="input_height">60dp</dimen>
-    <dimen name="input_radius">14dp</dimen>
+    <dimen name="input_height">56dp</dimen>
+    <dimen name="input_radius">12dp</dimen>
 
     <!-- Botón -->
-    <dimen name="button_radius">20dp</dimen>
-    <dimen name="button_height">56dp</dimen>
+    <dimen name="button_radius">12dp</dimen>
+    <dimen name="button_height">52dp</dimen>
 
     <!-- Card -->
-    <dimen name="card_radius">24dp</dimen>
+    <dimen name="card_radius">18dp</dimen>
 
     <!-- Texto -->
     <dimen name="text_title">30sp</dimen>

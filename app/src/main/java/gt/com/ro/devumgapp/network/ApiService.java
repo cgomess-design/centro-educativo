@@ -84,6 +84,13 @@ public interface ApiService extends AuthService {
     @GET("docentes/{id}")
     Call<JsonElement> obtenerDocente(@Path("id") long id);
 
+    /** Docente asociado al usuario autenticado por el JWT. */
+    @GET("docentes/me")
+    Call<JsonElement> obtenerMiPerfilDocente();
+
+    @GET("docentes/me/cursos")
+    Call<JsonElement> obtenerCursosDelDocenteActual();
+
     @POST("docentes")
     Call<JsonElement> crearDocente(@Body DocenteRequest request);
 
@@ -97,7 +104,8 @@ public interface ApiService extends AuthService {
 
     @GET("notas")
     Call<JsonElement> obtenerNotas();
-
+    @GET("notas/curso/{cursoId}")
+    Call<JsonElement> obtenerNotasPorCurso(@Path("cursoId") long cursoId);
     @GET("notas/{id}")
     Call<JsonElement> obtenerNota(@Path("id") long id);
 

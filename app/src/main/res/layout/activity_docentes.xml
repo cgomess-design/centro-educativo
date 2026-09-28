@@ -3,21 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/screen_background"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="16dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Docentes"
-        android:textSize="28sp"
-        android:textStyle="bold"
+        android:textAppearance="@style/TextAppearance.Centro.ScreenTitle"
         tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/btnAgregarDocente"
+        style="@style/Widget.Centro.SecondaryButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginTop="12dp"
         android:text="AGREGAR"
@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
+        android:indeterminateTint="@color/primary_blue"
         android:visibility="gone" />
 
     <TextView
@@ -36,9 +37,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
+        android:background="@drawable/bg_surface_card"
         android:gravity="center"
+        android:padding="20dp"
         android:text="No hay docentes disponibles."
-        android:textSize="16sp"
+        android:textAppearance="@style/TextAppearance.Centro.Body"
         android:visibility="gone"
         tools:ignore="HardcodedText" />
 
@@ -46,7 +49,9 @@
         android:id="@+id/recyclerDocentes"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
         android:layout_weight="1" />
 
 </LinearLayout>

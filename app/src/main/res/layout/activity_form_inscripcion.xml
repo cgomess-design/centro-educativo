@@ -4,26 +4,30 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/screen_background"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_surface_card"
+        android:elevation="2dp"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Inscripción"
-            android:textSize="26sp"
-            android:textStyle="bold"
+            android:textAppearance="@style/TextAppearance.Centro.ScreenTitle"
             tools:ignore="HardcodedText" />
 
         <EditText
             android:id="@+id/edtEstudianteIdInscripcion"
+            style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:hint="ID del estudiante"
             android:inputType="number"
@@ -31,16 +35,18 @@
 
         <EditText
             android:id="@+id/edtCursoIdInscripcion"
+            style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:hint="ID del curso"
             android:inputType="number"
             tools:ignore="HardcodedText" />
 
         <EditText
             android:id="@+id/edtFechaInscripcion"
+            style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:hint="Fecha de inscripción (AAAA-MM-DD)"
             android:inputType="date"
             tools:ignore="HardcodedText" />
@@ -51,12 +57,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:indeterminateTint="@color/primary_blue"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/btnGuardarInscripcion"
+            style="@style/Widget.Centro.PrimaryButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             tools:ignore="HardcodedText" />
 

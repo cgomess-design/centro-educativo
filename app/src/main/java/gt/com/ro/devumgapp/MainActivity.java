@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import gt.com.ro.devumgapp.activities.DocenteActivity;
 import gt.com.ro.devumgapp.activities.EstudiantesActivity;
 import gt.com.ro.devumgapp.activities.CursosActivity;
 import gt.com.ro.devumgapp.activities.InscripcionesActivity;
@@ -66,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
         btnEstudiantes.setOnClickListener(v ->
                 startActivity(new Intent(this, EstudiantesActivity.class)));
 
-        btnDocentes.setOnClickListener(v -> showUpcomingModule("Docentes"));
+        btnDocentes.setOnClickListener(v ->
+                startActivity(new Intent(this, DocenteActivity.class)));
 
         btnCursos.setOnClickListener(v ->
                 startActivity(new Intent(this, CursosActivity.class)));
@@ -79,12 +81,14 @@ public class MainActivity extends AppCompatActivity {
                         )
                 )
         );
-        btnNotas.setOnClickListener(v -> showUpcomingModule("Notas"));
+        btnNotas.setOnClickListener(v ->
+                startActivity(new Intent(this, NotasActivity.class)));
         btnConsultarNotas.setOnClickListener(v ->
                 startActivity(new Intent(this, NotasActivity.class)));
         btnConsultarCursos.setOnClickListener(v ->
                 startActivity(new Intent(this, CursosActivity.class)));
-        btnConsultarCursosAsignados.setOnClickListener(v -> showUpcomingModule("Consulta de Cursos Asignados"));
+        btnConsultarCursosAsignados.setOnClickListener(v ->
+                startActivity(new Intent(this, CursosActivity.class)));
 
         btnCerrarSesion.setOnClickListener(v -> {
             TokenManager.getInstance(this).clearToken();

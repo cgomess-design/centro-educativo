@@ -56,9 +56,15 @@ public class CursoAdapter extends RecyclerView.Adapter<CursoAdapter.CursoViewHol
             holder.codigo.setText(curso.getCodigo());
             holder.creditos.setText(String.valueOf(curso.getCreditos()));
 
-            holder.itemView.setOnClickListener(
-                    v -> listener.onCursoClick(curso)
-            );
+            if (listener == null) {
+                holder.itemView.setOnClickListener(null);
+                holder.itemView.setClickable(false);
+            } else {
+                holder.itemView.setOnClickListener(
+                        v -> listener.onCursoClick(curso)
+                );
+                holder.itemView.setClickable(true);
+            }
         }
 
         @Override

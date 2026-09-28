@@ -1,49 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/screen_background"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_surface_card"
+        android:elevation="2dp"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="20dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Docente"
-            android:textSize="26sp"
-            android:textStyle="bold" />
+            android:textAppearance="@style/TextAppearance.Centro.ScreenTitle" />
 
         <EditText
-            android:id="@+id/edtNombresDocente"
+            android:id="@+id/edtNombreDocente"
+            style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:hint="Nombres"
+            android:hint="Nombre"
             android:inputType="textCapWords" />
 
         <EditText
-            android:id="@+id/edtApellidosDocente"
+            android:id="@+id/edtApellidoDocente"
+            style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Apellidos"
+            android:layout_marginTop="12dp"
+            android:hint="Apellido"
             android:inputType="textCapWords" />
 
         <EditText
-            android:id="@+id/edtCorreoDocente"
+            android:id="@+id/edtEmailInstitucionalDocente"
+            style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Correo Electrónico"
+            android:layout_marginTop="12dp"
+            android:hint="Correo Institucional"
             android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/edtTelefonoDocente"
+            android:id="@+id/edtEmailPersonalDocente"
+            style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="Correo Personal"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/edtDpiDocente"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            android:hint="DPI"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/edtTelefonoDocente"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
             android:hint="Teléfono"
             android:inputType="phone" />
+
+        <EditText
+            android:id="@+id/edtEspecialidadDocente"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            android:hint="Especialidad"
+            android:inputType="textCapSentences" />
+
+        <EditText
+            android:id="@+id/edtFechaContratacionDocente"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:hint="Fecha de Contratación (AAAA-MM-DD)"
+            android:inputType="none" />
 
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/swActivoDocente"
@@ -51,6 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Estado Activo"
+            android:textColor="@color/text_primary"
             android:textSize="16sp" />
 
         <ProgressBar
@@ -59,12 +102,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
+            android:indeterminateTint="@color/primary_blue"
             android:visibility="gone" />
 
         <Button
             android:id="@+id/btnGuardarDocente"
+            style="@style/Widget.Centro.PrimaryButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_marginTop="20dp" />
 
     </LinearLayout>
