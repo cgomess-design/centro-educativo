@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/screen_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_surface_card"
+        android:elevation="2dp"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Carrera"
+            android:textAppearance="@style/TextAppearance.Centro.ScreenTitle" />
+
+        <EditText
+            android:id="@+id/edtCodigoCarrera"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="24dp"
+            android:hint="Código de la carrera"
+            android:inputType="textCapCharacters"
+            android:maxLength="20" />
+
+        <EditText
+            android:id="@+id/edtNombreCarrera"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="12dp"
+            android:hint="Nombre"
+            android:inputType="textCapWords"
+            android:maxLength="150" />
+
+        <ProgressBar
+            android:id="@+id/progressFormCarrera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:indeterminateTint="@color/primary_blue"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnGuardarCarrera"
+            style="@style/Widget.Centro.PrimaryButton"
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
+</ScrollView>
