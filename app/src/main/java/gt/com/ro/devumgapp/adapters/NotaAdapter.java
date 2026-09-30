@@ -67,7 +67,12 @@ public class NotaAdapter extends RecyclerView.Adapter<NotaAdapter.NotaViewHolder
         } else {
             holder.estudiante.setText(nota.getEstudianteNombre() != null ? nota.getEstudianteNombre() : "ID Estudiante: " + nota.getEstudianteId());
             holder.curso.setText(nota.getCursoNombre() != null ? nota.getCursoNombre() : "ID Curso: " + nota.getCursoId());
-            holder.valor.setText("Nota: " + nota.getNota());
+            Double notaFinal = nota.getNotaFinal() != null ? nota.getNotaFinal() : nota.getNota();
+            String breakdown = "";
+            if (nota.getZona() != null || nota.getExamenFinal() != null) {
+                breakdown = " (Zona: " + valueOrUnavailable(nota.getZona()) + " | Final: " + valueOrUnavailable(nota.getExamenFinal()) + ")";
+            }
+            holder.valor.setText("Nota: " + (notaFinal != null ? notaFinal : "0.0") + breakdown);
             holder.itemView.setOnClickListener(v -> listener.onNotaClick(nota));
         }
     }

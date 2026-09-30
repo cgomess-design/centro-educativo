@@ -60,6 +60,7 @@ public class FormInscripcionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_inscripcion);
+        gt.com.ro.devumgapp.utils.KeyboardAdjustHelper.setupKeyboardAdjustment(this);
 
         inscripcionId = getIntent().getLongExtra(EXTRA_INSCRIPCION_ID, -1);
 

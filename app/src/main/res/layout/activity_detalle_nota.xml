@@ -31,6 +31,7 @@
             android:indeterminateTint="@color/primary_blue"
             android:visibility="gone" />
 
+        <!-- Estudiante -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,6 +46,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.Centro.Value" />
 
+        <!-- Curso -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,11 +61,57 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.Centro.Value" />
 
+        <!-- Ciclo Académico -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Nota / Calificación"
+            android:text="Ciclo Académico"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/txtDetalleCicloNota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Centro.Value" />
+
+        <!-- Zona -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Zona"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/txtDetalleZonaNota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Centro.Value" />
+
+        <!-- Examen Final -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Examen Final"
+            android:textStyle="bold"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/txtDetalleExamenFinalNota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.Centro.Value" />
+
+        <!-- Nota Final -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Nota Final"
             android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
@@ -75,6 +123,7 @@
             android:textColor="@color/primary_blue"
             android:textStyle="bold" />
 
+        <!-- Estado -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

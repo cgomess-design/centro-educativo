@@ -56,6 +56,7 @@ public class FormCursoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_curso);
+        gt.com.ro.devumgapp.utils.KeyboardAdjustHelper.setupKeyboardAdjustment(this);
 
         cursoId = getIntent().getLongExtra(EXTRA_CURSO_ID, -1);
 

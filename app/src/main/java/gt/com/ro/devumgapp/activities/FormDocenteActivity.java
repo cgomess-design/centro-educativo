@@ -49,6 +49,7 @@ public class FormDocenteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_docente);
+        gt.com.ro.devumgapp.utils.KeyboardAdjustHelper.setupKeyboardAdjustment(this);
 
         docenteId = getIntent().getLongExtra(EXTRA_DOCENTE_ID, -1);
 

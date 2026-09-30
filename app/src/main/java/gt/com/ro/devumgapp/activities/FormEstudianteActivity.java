@@ -38,6 +38,7 @@ public class FormEstudianteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_estudiante);
+        gt.com.ro.devumgapp.utils.KeyboardAdjustHelper.setupKeyboardAdjustment(this);
         estudianteId = getIntent().getLongExtra(EXTRA_ESTUDIANTE_ID, -1);
         codigo = findViewById(R.id.edtCodigoEstudiante);
         carnet = findViewById(R.id.edtCarnetEstudiante);

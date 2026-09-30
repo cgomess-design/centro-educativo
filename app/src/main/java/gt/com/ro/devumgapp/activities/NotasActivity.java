@@ -39,6 +39,8 @@ import retrofit2.Response;
 /** Gestión de notas. El docente trabaja únicamente con sus cursos autenticados. */
 public class NotasActivity extends AppCompatActivity {
 
+    public static final String EXTRA_CURSO_ID = "curso_id";
+
     private NotaAdapter adapter;
     private ProgressBar progressBar;
     private TextView emptyView;
@@ -56,6 +58,10 @@ public class NotasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notas);
+
+        if (getIntent().hasExtra(EXTRA_CURSO_ID)) {
+            selectedCourseId = getIntent().getLongExtra(EXTRA_CURSO_ID, -1);
+        }
 
         progressBar = findViewById(R.id.progressNotas);
         emptyView = findViewById(R.id.txtNotasVacias);
@@ -312,11 +318,27 @@ public class NotasActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    private Curso findTeacherCourse(long id) {
+        for (Curso c : teacherCourses) {
+            if (c.getId() == id) {
+                return c;
+            }
+        }
+        return null;
+    }
+
     private void abrirFormularioNuevaNota() {
         Intent intent = new Intent(this, FormNotaActivity.class);
         if (teacherMode) {
             if (selectedCourseId <= 0) return;
             intent.putExtra(FormNotaActivity.EXTRA_CURSO_ID, selectedCourseId);
+            Curso c = findTeacherCourse(selectedCourseId);
+            if (c != null) {
+                String codigo = c.getCodigo() == null ? "" : c.getCodigo() + " - ";
+                String nombre = c.getNombre() == null ? "Curso sin nombre" : c.getNombre();
+                intent.putExtra(FormNotaActivity.EXTRA_CURSO_NOMBRE, codigo + nombre);
+            }
         }
         startActivity(intent);
     }
@@ -326,6 +348,12 @@ public class NotasActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FormNotaActivity.class);
         intent.putExtra(FormNotaActivity.EXTRA_NOTA_ID, nota.getId());
         intent.putExtra(FormNotaActivity.EXTRA_CURSO_ID, selectedCourseId);
+        Curso c = findTeacherCourse(selectedCourseId);
+        if (c != null) {
+            String codigo = c.getCodigo() == null ? "" : c.getCodigo() + " - ";
+            String nombre = c.getNombre() == null ? "Curso sin nombre" : c.getNombre();
+            intent.putExtra(FormNotaActivity.EXTRA_CURSO_NOMBRE, codigo + nombre);
+        }
         startActivity(intent);
     }
 

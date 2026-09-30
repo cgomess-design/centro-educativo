@@ -35,6 +35,7 @@ public class FormCarreraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_carrera);
+        gt.com.ro.devumgapp.utils.KeyboardAdjustHelper.setupKeyboardAdjustment(this);
 
         carreraId = getIntent().getLongExtra(EXTRA_CARRERA_ID, -1);
         codigo = findViewById(R.id.edtCodigoCarrera);
