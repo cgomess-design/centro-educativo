@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import gt.com.ro.devumgapp.network.RetrofitClient;
 import gt.com.ro.devumgapp.network.model.LoginRequest;
 import gt.com.ro.devumgapp.network.model.LoginResponse;
 import gt.com.ro.devumgapp.utils.ApiErrorHandler;
+import gt.com.ro.devumgapp.utils.AppUpdateChecker;
 import gt.com.ro.devumgapp.utils.JwtUtils;
 import gt.com.ro.devumgapp.utils.TokenManager;
 import retrofit2.Call;
@@ -46,6 +48,12 @@ public class LoginActivity extends AppCompatActivity {
         progressBarLogin = findViewById(R.id.progressBarLogin);
         findViewById(R.id.chkRecordar).setVisibility(View.GONE);
         findViewById(R.id.txtForgotPassword).setVisibility(View.GONE);
+
+        TextView txtVersion = findViewById(R.id.txtVersion);
+        if (txtVersion != null) {
+            String versionName = AppUpdateChecker.getLocalVersionName(this);
+            txtVersion.setText(getString(R.string.app_version_format, versionName));
+        }
 
         btnShowPassword.setOnClickListener(v -> togglePassword());
         btnLogin.setOnClickListener(v -> login());
