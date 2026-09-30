@@ -24,31 +24,44 @@
             android:textAppearance="@style/TextAppearance.Centro.ScreenTitle"
             tools:ignore="HardcodedText" />
 
-        <EditText
-            android:id="@+id/edtEstudianteIdInscripcion"
-            style="@style/Widget.Centro.EditText"
+        <TextView
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:hint="ID del estudiante"
-            android:inputType="number"
+            android:text="Estudiante"
+            android:textAppearance="@style/TextAppearance.Centro.Label"
             tools:ignore="HardcodedText" />
 
-        <EditText
-            android:id="@+id/edtCursoIdInscripcion"
-            style="@style/Widget.Centro.EditText"
+        <Spinner
+            android:id="@+id/spnEstudianteInscripcion"
+            style="@style/Widget.Centro.Spinner"
             android:layout_width="match_parent"
-            android:layout_marginTop="12dp"
-            android:hint="ID del curso"
-            android:inputType="number"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Curso"
+            android:textAppearance="@style/TextAppearance.Centro.Label"
             tools:ignore="HardcodedText" />
+
+        <Spinner
+            android:id="@+id/spnCursoInscripcion"
+            style="@style/Widget.Centro.Spinner"
+            android:layout_width="match_parent"
+            android:layout_marginTop="4dp" />
 
         <EditText
             android:id="@+id/edtFechaInscripcion"
             style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
             android:layout_marginTop="12dp"
+            android:clickable="true"
+            android:cursorVisible="false"
+            android:focusable="false"
             android:hint="Fecha de inscripción (AAAA-MM-DD)"
-            android:inputType="date"
+            android:inputType="none"
             tools:ignore="HardcodedText" />
 
         <ProgressBar

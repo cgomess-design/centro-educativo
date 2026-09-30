@@ -21,7 +21,8 @@
     <string name="hide_password">Ocultar contraseña</string>
 
     <!-- Footer -->
-    <string name="app_version">v1.0.0</string>
+    <string name="app_version">v1.2.0</string>
+    <string name="app_version_format">v%1$s</string>
     <string name="copyright">© 2026 UmgDev. Todos los derechos reservados.</string>
 
     <!-- Menú Principal -->

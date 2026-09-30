@@ -87,4 +87,8 @@ public class Docente {
     public void setActivo(Boolean activo) {
         this.activo = activo;
     }
+
+    public String getNombreCompleto() {
+        return ((nombre == null ? "" : nombre) + " " + (apellido == null ? "" : apellido)).trim();
+    }
 }
