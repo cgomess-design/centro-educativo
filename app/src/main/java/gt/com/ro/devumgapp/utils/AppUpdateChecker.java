@@ -20,8 +20,14 @@ public class AppUpdateChecker {
     private static final String COLLECTION_VERSIONES = "versiones";
     private static final String DOCUMENT_ACTUAL = "actual";
 
+    public enum UpdateType {
+        NONE,
+        RECOMMENDED,
+        MANDATORY
+    }
+
     public interface OnUpdateCheckListener {
-        void onUpdateAvailable(String newVersionName, long newVersionCode, String apkUrl);
+        void onUpdateAvailable(UpdateType type, String newVersionName, long newVersionCode, String apkUrl);
         void onNoUpdateNeeded();
         void onError(Exception e);
     }
@@ -43,25 +49,30 @@ public class AppUpdateChecker {
                     }
 
                     Long remoteCodeObj = documentSnapshot.getLong("versionCode");
+                    Long minCodeObj = documentSnapshot.getLong("minVersionCode");
                     long remoteVersionCode = remoteCodeObj != null ? remoteCodeObj : 0;
+                    long minVersionCode = minCodeObj != null ? minCodeObj : 0;
                     String remoteVersionName = documentSnapshot.getString("versionName");
                     String apkUrl = documentSnapshot.getString("apkUrl");
 
                     Log.d(TAG, "Versión remota Firestore: code=" + remoteVersionCode +
+                            ", minCode=" + minVersionCode +
                             ", name=" + remoteVersionName + ", apkUrl=" + apkUrl);
 
-                    boolean isUpdateAvailable = false;
-                    if (remoteVersionCode > localVersionCode) {
-                        isUpdateAvailable = true;
+                    UpdateType updateType = UpdateType.NONE;
+                    if (localVersionCode < minVersionCode) {
+                        updateType = UpdateType.MANDATORY;
+                    } else if (remoteVersionCode > localVersionCode) {
+                        updateType = UpdateType.RECOMMENDED;
                     } else if (remoteVersionCode == localVersionCode && remoteVersionName != null) {
                         if (compareVersions(remoteVersionName, localVersionName) > 0) {
-                            isUpdateAvailable = true;
+                            updateType = UpdateType.RECOMMENDED;
                         }
                     }
 
-                    if (isUpdateAvailable && apkUrl != null && !apkUrl.trim().isEmpty()) {
+                    if (updateType != UpdateType.NONE && apkUrl != null && !apkUrl.trim().isEmpty()) {
                         String displayVersion = remoteVersionName != null ? remoteVersionName : String.valueOf(remoteVersionCode);
-                        listener.onUpdateAvailable(displayVersion, remoteVersionCode, apkUrl.trim());
+                        listener.onUpdateAvailable(updateType, displayVersion, remoteVersionCode, apkUrl.trim());
                     } else {
                         listener.onNoUpdateNeeded();
                     }

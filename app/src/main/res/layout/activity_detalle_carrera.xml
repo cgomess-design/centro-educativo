@@ -18,12 +18,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Detalle de Nota"
+            android:text="Detalle de la carrera"
             android:textAppearance="@style/TextAppearance.Centro.ScreenTitle"
             tools:ignore="HardcodedText" />
 
         <ProgressBar
-            android:id="@+id/progressDetalleNota"
+            android:id="@+id/progressDetalleCarrera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -31,99 +31,34 @@
             android:indeterminateTint="@color/primary_blue"
             android:visibility="gone" />
 
-        <!-- Estudiante -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Estudiante"
+            android:text="Código"
             android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
         <TextView
-            android:id="@+id/txtDetalleEstudianteNota"
+            android:id="@+id/txtDetalleCodigoCarrera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.Centro.Value" />
 
-        <!-- Curso -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Curso"
+            android:text="Nombre"
             android:textStyle="bold"
             tools:ignore="HardcodedText" />
 
         <TextView
-            android:id="@+id/txtDetalleCursoNota"
+            android:id="@+id/txtDetalleNombreCarrera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.Centro.Value" />
 
-        <!-- Ciclo Académico -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Ciclo Académico"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/txtDetalleCicloNota"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Centro.Value" />
-
-        <!-- Zona -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Zona"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/txtDetalleZonaNota"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Centro.Value" />
-
-        <!-- Examen Final -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Examen Final"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/txtDetalleExamenFinalNota"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Centro.Value" />
-
-        <!-- Nota Final -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Nota Final"
-            android:textStyle="bold"
-            tools:ignore="HardcodedText" />
-
-        <TextView
-            android:id="@+id/txtDetalleValorNota"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:textColor="@color/primary_blue"
-            android:textStyle="bold" />
-
-        <!-- Estado -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -133,13 +68,13 @@
             tools:ignore="HardcodedText" />
 
         <TextView
-            android:id="@+id/txtDetalleEstadoNota"
+            android:id="@+id/txtDetalleEstadoCarrera"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.Centro.Value" />
 
         <Button
-            android:id="@+id/btnEditarNota"
+            android:id="@+id/btnEditarCarrera"
             style="@style/Widget.Centro.PrimaryButton"
             android:layout_width="match_parent"
             android:layout_marginTop="32dp"
@@ -147,11 +82,11 @@
             tools:ignore="HardcodedText" />
 
         <Button
-            android:id="@+id/btnEliminarNota"
+            android:id="@+id/btnEliminarCarrera"
             style="@style/Widget.Centro.DangerButton"
             android:layout_width="match_parent"
             android:layout_marginTop="12dp"
-            android:text="ELIMINAR"
+            android:text="ELIMINAR / DESACTIVAR"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>

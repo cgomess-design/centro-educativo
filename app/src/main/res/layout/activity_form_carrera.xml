@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollFormEstudiante"
+    android:id="@+id/scrollFormCarrera"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/screen_background"
@@ -20,57 +20,42 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Estudiante"
+            android:text="Carrera"
             android:textAppearance="@style/TextAppearance.Centro.ScreenTitle" />
 
         <EditText
-            android:id="@+id/edtCodigoEstudiante"
+            android:id="@+id/edtCodigoCarrera"
             style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
             android:layout_marginTop="24dp"
-            android:hint="Código de estudiante"
-            android:inputType="text" />
+            android:hint="Código de la carrera"
+            android:inputType="textCapCharacters"
+            android:maxLength="20" />
+
         <EditText
-            android:id="@+id/edtCarnetEstudiante"
-            style="@style/Widget.Centro.EditText"
-            android:layout_width="match_parent"
-            android:layout_marginTop="12dp"
-            android:hint="Carnet"
-            android:inputType="text" />
-        <EditText
-            android:id="@+id/edtEmailEstudiante"
-            style="@style/Widget.Centro.EditText"
-            android:layout_width="match_parent"
-            android:layout_marginTop="12dp"
-            android:hint="Correo"
-            android:inputType="textEmailAddress" />
-        <EditText
-            android:id="@+id/edtNombreEstudiante"
+            android:id="@+id/edtNombreCarrera"
             style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
             android:layout_marginTop="12dp"
             android:hint="Nombre"
-            android:inputType="textCapWords" />
-        <EditText
-            android:id="@+id/edtApellidoEstudiante"
-            style="@style/Widget.Centro.EditText"
-            android:layout_width="match_parent"
-            android:layout_marginTop="12dp"
-            android:hint="Apellido"
-            android:inputType="textCapWords" />
+            android:inputType="textCapWords"
+            android:maxLength="150" />
 
         <ProgressBar
-            android:id="@+id/progressFormEstudiante"
+            android:id="@+id/progressFormCarrera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:indeterminateTint="@color/primary_blue"
             android:visibility="gone" />
+
         <Button
-            android:id="@+id/btnGuardarEstudiante"
+            android:id="@+id/btnGuardarCarrera"
             style="@style/Widget.Centro.PrimaryButton"
             android:layout_width="match_parent"
             android:layout_marginTop="20dp" />
+
     </LinearLayout>
+
 </ScrollView>

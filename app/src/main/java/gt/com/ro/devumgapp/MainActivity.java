@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import gt.com.ro.devumgapp.activities.DocenteActivity;
 import gt.com.ro.devumgapp.activities.EstudiantesActivity;
+import gt.com.ro.devumgapp.activities.CarrerasActivity;
 import gt.com.ro.devumgapp.activities.CursosActivity;
 import gt.com.ro.devumgapp.activities.InscripcionesActivity;
 import gt.com.ro.devumgapp.activities.NotasActivity;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnEstudiantes;
     private Button btnDocentes;
+    private Button btnCarreras;
     private Button btnCursos;
     private Button btnInscripciones;
     private Button btnNotas;
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnEstudiantes = findViewById(R.id.btnMenuEstudiantes);
         btnDocentes = findViewById(R.id.btnMenuDocentes);
+        btnCarreras = findViewById(R.id.btnMenuCarreras);
         btnCursos = findViewById(R.id.btnMenuCursos);
         btnInscripciones = findViewById(R.id.btnMenuInscripciones);
         btnNotas = findViewById(R.id.btnMenuNotas);
@@ -69,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
         btnDocentes.setOnClickListener(v ->
                 startActivity(new Intent(this, DocenteActivity.class)));
+
+        btnCarreras.setOnClickListener(v ->
+                startActivity(new Intent(this, CarrerasActivity.class)));
 
         btnCursos.setOnClickListener(v ->
                 startActivity(new Intent(this, CursosActivity.class)));
@@ -140,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
             actualizarIndicadorRol(getString(R.string.role_admin), username);
             btnEstudiantes.setVisibility(View.VISIBLE);
             btnDocentes.setVisibility(View.VISIBLE);
+            btnCarreras.setVisibility(View.VISIBLE);
             btnCursos.setVisibility(View.VISIBLE);
             btnInscripciones.setVisibility(View.VISIBLE);
             txtMenuSinPermisos.setVisibility(View.GONE);
@@ -157,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
     private void ocultarTodasLasOpciones() {
         btnEstudiantes.setVisibility(View.GONE);
         btnDocentes.setVisibility(View.GONE);
+        btnCarreras.setVisibility(View.GONE);
         btnCursos.setVisibility(View.GONE);
         btnInscripciones.setVisibility(View.GONE);
         btnNotas.setVisibility(View.GONE);

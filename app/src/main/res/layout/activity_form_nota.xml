@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollFormNota"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/screen_background"
+    android:fitsSystemWindows="true"
+    android:isScrollContainer="true"
     android:fillViewport="true">
 
     <LinearLayout
@@ -18,14 +22,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Registro de Nota"
-            android:textAppearance="@style/TextAppearance.Centro.ScreenTitle" />
+            android:textAppearance="@style/TextAppearance.Centro.ScreenTitle"
+            tools:ignore="HardcodedText" />
 
+        <!-- Estudiante -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Estudiante"
-            android:textAppearance="@style/TextAppearance.Centro.Label" />
+            android:layout_marginTop="20dp"
+            android:text="Estudiante Inscrito"
+            android:textAppearance="@style/TextAppearance.Centro.Label"
+            tools:ignore="HardcodedText" />
 
         <Spinner
             android:id="@+id/spnEstudianteNota"
@@ -33,12 +40,14 @@
             android:layout_width="match_parent"
             android:layout_marginTop="4dp" />
 
+        <!-- Curso -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Curso"
-            android:textAppearance="@style/TextAppearance.Centro.Label" />
+            android:textAppearance="@style/TextAppearance.Centro.Label"
+            tools:ignore="HardcodedText" />
 
         <Spinner
             android:id="@+id/spnCursoNota"
@@ -46,22 +55,124 @@
             android:layout_width="match_parent"
             android:layout_marginTop="4dp" />
 
+        <!-- Ciclo Académico -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Ciclo Académico"
+            android:textAppearance="@style/TextAppearance.Centro.Label"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/edtCicloAcademicoNota"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="4dp"
+            android:hint="Ej. Primer Semestre 2026"
+            android:inputType="textCapWords"
+            tools:ignore="HardcodedText" />
+
+        <!-- Zona -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Zona"
+            android:textAppearance="@style/TextAppearance.Centro.Label"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/edtZonaNota"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="4dp"
+            android:hint="Punteo de zona (0.0 - 70.0)"
+            android:inputType="numberDecimal"
+            tools:ignore="HardcodedText" />
+
+        <!-- Examen Final -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Examen Final"
+            android:textAppearance="@style/TextAppearance.Centro.Label"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/edtExamenFinalNota"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="4dp"
+            android:hint="Punteo examen final (0.0 - 30.0)"
+            android:inputType="numberDecimal"
+            tools:ignore="HardcodedText" />
+
+        <!-- Nota Final Calculada -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Nota Final (Total)"
+            android:textAppearance="@style/TextAppearance.Centro.Label"
+            tools:ignore="HardcodedText" />
+
         <EditText
             android:id="@+id/edtValorNota"
             style="@style/Widget.Centro.EditText"
             android:layout_width="match_parent"
-            android:layout_marginTop="16dp"
-            android:hint="Calificación (0.0 - 100.0)"
-            android:inputType="numberDecimal" />
+            android:layout_marginTop="4dp"
+            android:hint="Calificación final (0.0 - 100.0)"
+            android:inputType="numberDecimal"
+            tools:ignore="HardcodedText" />
 
+        <!-- Estado de la Nota -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Estado"
+            android:textAppearance="@style/TextAppearance.Centro.Label"
+            tools:ignore="HardcodedText" />
+
+        <Spinner
+            android:id="@+id/spnEstadoNota"
+            style="@style/Widget.Centro.Spinner"
+            android:layout_width="match_parent"
+            android:layout_marginTop="4dp" />
+
+        <!-- Fecha de Registro -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Fecha de Registro"
+            android:textAppearance="@style/TextAppearance.Centro.Label"
+            tools:ignore="HardcodedText" />
+
+        <EditText
+            android:id="@+id/edtFechaRegistroNota"
+            style="@style/Widget.Centro.EditText"
+            android:layout_width="match_parent"
+            android:layout_marginTop="4dp"
+            android:clickable="true"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:hint="Fecha de registro (AAAA-MM-DD)"
+            android:inputType="none"
+            tools:ignore="HardcodedText" />
+
+        <!-- Estado Activo -->
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/swActivoNota"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Activo"
+            android:text="Estado Activo"
             android:textColor="@color/text_primary"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            tools:ignore="HardcodedText" />
 
         <ProgressBar
             android:id="@+id/progressFormNota"
@@ -77,7 +188,8 @@
             style="@style/Widget.Centro.PrimaryButton"
             android:layout_width="match_parent"
             android:layout_marginTop="20dp"
-            android:text="GUARDAR" />
+            android:text="GUARDAR"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 

@@ -29,7 +29,7 @@ public class DetalleNotaActivity extends AppCompatActivity {
 
     private long notaId;
     private ProgressBar progressBar;
-    private TextView estudiante, curso, valor, estado;
+    private TextView estudiante, curso, ciclo, zona, examenFinal, valor, estado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,9 @@ public class DetalleNotaActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressDetalleNota);
         estudiante = findViewById(R.id.txtDetalleEstudianteNota);
         curso = findViewById(R.id.txtDetalleCursoNota);
+        ciclo = findViewById(R.id.txtDetalleCicloNota);
+        zona = findViewById(R.id.txtDetalleZonaNota);
+        examenFinal = findViewById(R.id.txtDetalleExamenFinalNota);
         valor = findViewById(R.id.txtDetalleValorNota);
         estado = findViewById(R.id.txtDetalleEstadoNota);
 
@@ -96,7 +99,12 @@ public class DetalleNotaActivity extends AppCompatActivity {
     private void bind(Nota nota) {
         estudiante.setText(nota.getEstudianteNombre() != null ? nota.getEstudianteNombre() : "ID: " + nota.getEstudianteId());
         curso.setText(nota.getCursoNombre() != null ? nota.getCursoNombre() : "ID: " + nota.getCursoId());
-        valor.setText(String.valueOf(nota.getNota()));
+        ciclo.setText(nota.getCicloAcademico() != null && !nota.getCicloAcademico().trim().isEmpty()
+                ? nota.getCicloAcademico() : "No registrado");
+        zona.setText(nota.getZona() != null ? String.valueOf(nota.getZona()) : "No registrada");
+        examenFinal.setText(nota.getExamenFinal() != null ? String.valueOf(nota.getExamenFinal()) : "No registrado");
+        Double notaFinal = nota.getNotaFinal() != null ? nota.getNotaFinal() : nota.getNota();
+        valor.setText(notaFinal != null ? String.valueOf(notaFinal) : "0.0");
         estado.setText(Boolean.TRUE.equals(nota.getActivo()) ? "Activo" : "Inactivo");
     }
 

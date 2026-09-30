@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import gt.com.ro.devumgapp.utils.AuthInterceptor;
 import gt.com.ro.devumgapp.utils.TokenManager;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -17,11 +18,15 @@ public class RetrofitClient {
     private final ApiService apiService;
 
     private RetrofitClient(Context context) {
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .readTimeout(20, TimeUnit.SECONDS)
                 .writeTimeout(20, TimeUnit.SECONDS)
                 .addInterceptor(new AuthInterceptor(TokenManager.getInstance(context)))
+                .addInterceptor(loggingInterceptor)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()

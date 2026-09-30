@@ -62,8 +62,8 @@ public class CursosActivity extends AppCompatActivity {
             recycler.setAdapter(inscripcionAdapter);
             emptyView.setText("Aún no tienes cursos asignados.");
         } else {
-            // El docente consulta; la edición de cursos sigue siendo exclusiva del módulo admin.
-            cursoAdapter = new CursoAdapter(teacherMode ? null : this::openDetail);
+            // El docente abre directamente las notas del curso; el admin consulta el detalle/edición.
+            cursoAdapter = new CursoAdapter(teacherMode ? this::abrirNotasDelCurso : this::openDetail);
             recycler.setAdapter(cursoAdapter);
             if (teacherMode) {
                 emptyView.setText("No tienes cursos asignados.");
@@ -190,6 +190,13 @@ public class CursosActivity extends AppCompatActivity {
     private void openDetail(Curso curso) {
         Intent intent = new Intent(this, DetalleCursoActivity.class);
         intent.putExtra(DetalleCursoActivity.EXTRA_CURSO_ID, curso.getId());
+        startActivity(intent);
+    }
+
+    private void abrirNotasDelCurso(Curso curso) {
+        if (curso == null) return;
+        Intent intent = new Intent(this, NotasActivity.class);
+        intent.putExtra(NotasActivity.EXTRA_CURSO_ID, curso.getId());
         startActivity(intent);
     }
 

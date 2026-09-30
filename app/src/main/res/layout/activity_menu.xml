@@ -141,6 +141,15 @@
                     android:text="@string/menu_docentes"
                     />
 
+                <!-- Opción: Gestionar Carreras -->
+                <Button
+                    android:id="@+id/btnMenuCarreras"
+                    style="@style/Widget.Centro.MenuButton"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="12dp"
+                    android:drawableStart="@drawable/ic_courses"
+                    android:text="@string/menu_carreras" />
+
                 <!-- Opción: Gestionar Cursos -->
                 <Button
                     android:id="@+id/btnMenuCursos"

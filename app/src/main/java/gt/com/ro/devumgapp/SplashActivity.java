@@ -42,6 +42,9 @@ public class SplashActivity extends AppCompatActivity {
     private AlertDialog updateDialog;
     private AlertDialog progressDialog;
     private File pendingApkToInstall = null;
+    private AppUpdateChecker.UpdateType currentUpdateType = AppUpdateChecker.UpdateType.NONE;
+    private String currentApkUrl = null;
+    private String currentNewVersionName = null;
 
     private final Runnable minSplashRunnable = () -> {
         minSplashElapsed = true;
@@ -62,14 +65,17 @@ public class SplashActivity extends AppCompatActivity {
     private void checkForAppUpdates() {
         AppUpdateChecker.checkForUpdate(this, new AppUpdateChecker.OnUpdateCheckListener() {
             @Override
-            public void onUpdateAvailable(String newVersionName, long newVersionCode, String apkUrl) {
+            public void onUpdateAvailable(AppUpdateChecker.UpdateType type, String newVersionName, long newVersionCode, String apkUrl) {
                 if (isFinishing() || isDestroyed()) return;
 
                 updateCheckFinished = true;
                 updateFound = true;
+                currentUpdateType = type;
+                currentApkUrl = apkUrl;
+                currentNewVersionName = newVersionName;
                 handler.removeCallbacks(minSplashRunnable);
 
-                showUpdateDialog(newVersionName, apkUrl);
+                showUpdateDialog(type, newVersionName, apkUrl);
             }
 
             @Override
@@ -94,21 +100,39 @@ public class SplashActivity extends AppCompatActivity {
         });
     }
 
-    private void showUpdateDialog(String newVersionName, String apkUrl) {
+    private void showUpdateDialog(AppUpdateChecker.UpdateType type, String newVersionName, String apkUrl) {
         if (isFinishing() || isDestroyed()) return;
 
-        updateDialog = new MaterialAlertDialogBuilder(this)
-                .setTitle(R.string.update_dialog_title)
-                .setMessage(getString(R.string.update_dialog_message, newVersionName))
-                .setCancelable(false)
-                .setPositiveButton(R.string.update_btn_confirm, (dialog, which) -> {
-                    startDownloadAndInstall(apkUrl);
-                })
-                .setNegativeButton(R.string.update_btn_later, (dialog, which) -> {
-                    checkSessionAndNavigate();
-                })
-                .create();
+        if (updateDialog != null && updateDialog.isShowing()) {
+            updateDialog.dismiss();
+        }
 
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+                .setCancelable(false);
+
+        if (type == AppUpdateChecker.UpdateType.MANDATORY) {
+            // Escenario 10.2: Actualización Obligatoria
+            builder.setTitle(R.string.update_mandatory_title)
+                    .setMessage(R.string.update_mandatory_message)
+                    .setPositiveButton(R.string.update_btn_confirm, (dialog, which) -> {
+                        startDownloadAndInstall(apkUrl);
+                    })
+                    .setNegativeButton(R.string.update_btn_exit, (dialog, which) -> {
+                        finishAffinity();
+                    });
+        } else {
+            // Escenario 10.1: Actualización Recomendada
+            builder.setTitle(R.string.update_recommended_title)
+                    .setMessage(R.string.update_recommended_message)
+                    .setPositiveButton(R.string.update_btn_confirm, (dialog, which) -> {
+                        startDownloadAndInstall(apkUrl);
+                    })
+                    .setNegativeButton(R.string.update_btn_continue, (dialog, which) -> {
+                        checkSessionAndNavigate();
+                    });
+        }
+
+        updateDialog = builder.create();
         updateDialog.show();
     }
 
@@ -157,8 +181,14 @@ public class SplashActivity extends AppCompatActivity {
                     progressDialog.dismiss();
                 }
 
-                Toast.makeText(SplashActivity.this, R.string.update_download_error, Toast.LENGTH_LONG).show();
-                checkSessionAndNavigate();
+                if (currentUpdateType == AppUpdateChecker.UpdateType.MANDATORY) {
+                    Toast.makeText(SplashActivity.this, R.string.update_download_mandatory_error, Toast.LENGTH_LONG).show();
+                    // Al ser obligatoria, no se puede continuar; se vuelve a mostrar el diálogo
+                    showUpdateDialog(currentUpdateType, currentNewVersionName, currentApkUrl);
+                } else {
+                    Toast.makeText(SplashActivity.this, R.string.update_download_error, Toast.LENGTH_LONG).show();
+                    checkSessionAndNavigate();
+                }
             }
         });
     }
@@ -169,7 +199,12 @@ public class SplashActivity extends AppCompatActivity {
         // Si el usuario regresa a la app después de lanzar el instalador (por ejemplo, canceló la instalación)
         if (installIntentLaunched) {
             installIntentLaunched = false;
-            checkSessionAndNavigate();
+            if (currentUpdateType == AppUpdateChecker.UpdateType.MANDATORY) {
+                // En actualización obligatoria, si no se completó la instalación, no debe continuar a la app
+                showUpdateDialog(currentUpdateType, currentNewVersionName, currentApkUrl);
+            } else {
+                checkSessionAndNavigate();
+            }
             return;
         }
 

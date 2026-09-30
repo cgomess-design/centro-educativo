@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollFormCurso"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/screen_background"
+    android:fitsSystemWindows="true"
+    android:isScrollContainer="true"
     android:fillViewport="true">
 
     <LinearLayout
@@ -44,21 +47,31 @@
             android:hint="Créditos"
             android:inputType="number" />
 
-        <EditText
-            android:id="@+id/edtDocenteIdCurso"
-            style="@style/Widget.Centro.EditText"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_marginTop="12dp"
-            android:hint="ID del docente"
-            android:inputType="number" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Docente"
+            android:textAppearance="@style/TextAppearance.Centro.Label" />
 
-        <EditText
-            android:id="@+id/edtCarreraIdCurso"
-            style="@style/Widget.Centro.EditText"
+        <Spinner
+            android:id="@+id/spnDocenteCurso"
+            style="@style/Widget.Centro.Spinner"
             android:layout_width="match_parent"
-            android:layout_marginTop="12dp"
-            android:hint="ID de la carrera"
-            android:inputType="number" />
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Carrera"
+            android:textAppearance="@style/TextAppearance.Centro.Label" />
+
+        <Spinner
+            android:id="@+id/spnCarreraCurso"
+            style="@style/Widget.Centro.Spinner"
+            android:layout_width="match_parent"
+            android:layout_marginTop="4dp" />
 
         <ProgressBar
             android:id="@+id/progressFormCurso"
